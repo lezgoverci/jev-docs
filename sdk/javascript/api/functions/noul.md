@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/functions/noul.md
 
 # Function: noul()
 
-```ts theme={null}
+```ts
 function noul(instructions?, criteria?): NoulQuestion;
 ```
 
@@ -20,15 +20,15 @@ Create a yes/no question with optional descriptions for either outcome.
 
 ### instructions?
 
-[`EntryType`](/sdk/javascript/api/type-aliases/EntryType) = `null`
+[`EntryType`](../type-aliases/EntryType.md) = `null`
 
 The question as text, a JSON object or array; defaults to `null`.
 
 ### criteria?
 
 \| \{
-`false?`: [`EntryType`](/sdk/javascript/api/type-aliases/EntryType);
-`true?`: [`EntryType`](/sdk/javascript/api/type-aliases/EntryType);
+`false?`: [`EntryType`](../type-aliases/EntryType.md);
+`true?`: [`EntryType`](../type-aliases/EntryType.md);
 }
 \| `null`
 
@@ -37,21 +37,21 @@ Optional descriptions of the yes and no outcomes.
 #### Type Literal
 
 \{
-`false?`: [`EntryType`](/sdk/javascript/api/type-aliases/EntryType);
-`true?`: [`EntryType`](/sdk/javascript/api/type-aliases/EntryType);
+`false?`: [`EntryType`](../type-aliases/EntryType.md);
+`true?`: [`EntryType`](../type-aliases/EntryType.md);
 }
 
 Optional descriptions of the yes and no outcomes.
 
 ##### false?
 
-[`EntryType`](/sdk/javascript/api/type-aliases/EntryType)
+[`EntryType`](../type-aliases/EntryType.md)
 
 Description of the no outcome.
 
 ##### true?
 
-[`EntryType`](/sdk/javascript/api/type-aliases/EntryType)
+[`EntryType`](../type-aliases/EntryType.md)
 
 Description of the yes outcome.
 
@@ -61,4 +61,4 @@ Description of the yes outcome.
 
 ## Returns
 
-[`NoulQuestion`](/sdk/javascript/api/interfaces/NoulQuestion)
+[`NoulQuestion`](../interfaces/NoulQuestion.md)

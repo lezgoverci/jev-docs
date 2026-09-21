@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/functions/choice.md
 
 # Function: choice()
 
-```ts theme={null}
+```ts
 function choice<T>(instructions, criteria): ChoiceQuestion<T>;
 ```
 
@@ -20,13 +20,13 @@ Create a question that selects between named alternatives.
 
 ### T
 
-`T` *extends* [`ChoiceCriteria`](/sdk/javascript/api/type-aliases/ChoiceCriteria)
+`T` *extends* [`ChoiceCriteria`](../type-aliases/ChoiceCriteria.md)
 
 ## Parameters
 
 ### instructions
 
-[`EntryType`](/sdk/javascript/api/type-aliases/EntryType)
+[`EntryType`](../type-aliases/EntryType.md)
 
 The question as text, a JSON object or array, or `null`.
 
@@ -38,4 +38,4 @@ Labels mapped to descriptions, or `null` for undescribed labels.
 
 ## Returns
 
-[`ChoiceQuestion`](/sdk/javascript/api/interfaces/ChoiceQuestion)\<`T`>
+[`ChoiceQuestion`](../interfaces/ChoiceQuestion.md)\<`T`>

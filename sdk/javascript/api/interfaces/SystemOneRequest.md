@@ -8,7 +8,7 @@ local_path: sdk/javascript/api/interfaces/SystemOneRequest.md
 > Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Interface: SystemOneRequest<Q>
+# Interface: SystemOneRequest\<Q\>
 
 State and named questions for `systemOne`.
 
@@ -16,21 +16,21 @@ Additional properties on a request variable are forwarded, including `null` valu
 
 ## Extended by
 
-* [`SystemOneRequestPayload`](/sdk/javascript/api/interfaces/SystemOneRequestPayload)
+* [`SystemOneRequestPayload`](./SystemOneRequestPayload.md)
 
 ## Type Parameters
 
 ### Q
 
-`Q` *extends* [`Questions`](/sdk/javascript/api/interfaces/Questions) = [`Questions`](/sdk/javascript/api/interfaces/Questions)
+`Q` *extends* [`Questions`](./Questions.md) = [`Questions`](./Questions.md)
 
 ## Properties
 
-<a id="sdk-model" />
+<a id="sdk-model"></a>
 
 ### model?
 
-```ts theme={null}
+```ts
 optional model?: string;
 ```
 
@@ -38,11 +38,11 @@ Model override; omitted values inherit `defaultModel`.
 
 ***
 
-<a id="sdk-questions" />
+<a id="sdk-questions"></a>
 
 ### questions
 
-```ts theme={null}
+```ts
 questions: Q;
 ```
 
@@ -50,11 +50,11 @@ Nonempty questions keyed by the names used to identify their answers.
 
 ***
 
-<a id="sdk-state" />
+<a id="sdk-state"></a>
 
 ### state
 
-```ts theme={null}
+```ts
 state: EntryType;
 ```
 

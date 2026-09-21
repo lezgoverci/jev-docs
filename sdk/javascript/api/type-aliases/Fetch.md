@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/Fetch.md
 
 # Type Alias: Fetch
 
-```ts theme={null}
+```ts
 type Fetch = (input, init?) => Promise<Response>;
 ```
 

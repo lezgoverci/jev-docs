@@ -8,7 +8,7 @@ local_path: sdk/javascript/api/interfaces/ScoreResponse.md
 > Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Interface: ScoreResponse<T>
+# Interface: ScoreResponse\<T\>
 
 An expected score with its rubric and probabilities.
 
@@ -16,15 +16,15 @@ An expected score with its rubric and probabilities.
 
 ### T
 
-`T` *extends* [`ScoreCriteria`](/sdk/javascript/api/type-aliases/ScoreCriteria) = [`ScoreCriteria`](/sdk/javascript/api/type-aliases/ScoreCriteria)
+`T` *extends* [`ScoreCriteria`](../type-aliases/ScoreCriteria.md) = [`ScoreCriteria`](../type-aliases/ScoreCriteria.md)
 
 ## Properties
 
-<a id="sdk-confidence" />
+<a id="sdk-confidence"></a>
 
 ### confidence
 
-```ts theme={null}
+```ts
 readonly confidence: number;
 ```
 
@@ -32,11 +32,11 @@ Reported confidence in the score.
 
 ***
 
-<a id="sdk-legend" />
+<a id="sdk-legend"></a>
 
 ### legend
 
-```ts theme={null}
+```ts
 readonly legend: ScoreLegend<T>;
 ```
 
@@ -44,11 +44,11 @@ Rubric descriptions keyed by score.
 
 ***
 
-<a id="sdk-probabilities" />
+<a id="sdk-probabilities"></a>
 
 ### probabilities
 
-```ts theme={null}
+```ts
 readonly probabilities: { readonly [score in number | `${number}`]: number };
 ```
 
@@ -56,11 +56,11 @@ Probabilities keyed by score.
 
 ***
 
-<a id="sdk-score" />
+<a id="sdk-score"></a>
 
 ### score
 
-```ts theme={null}
+```ts
 readonly score: number;
 ```
 
@@ -68,10 +68,10 @@ Expected score, which may fall between integer rubric levels.
 
 ***
 
-<a id="sdk-type" />
+<a id="sdk-type"></a>
 
 ### type
 
-```ts theme={null}
+```ts
 readonly type: "score";
 ```

@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/variables/ENV.md
 
 # Variable: ENV
 
-```ts theme={null}
+```ts
 const ENV: object;
 ```
 
@@ -18,41 +18,41 @@ Environment variable names for client configuration. Explicit options take prece
 
 ## Type Declaration
 
-<a id="sdk-apikey" />
+<a id="sdk-apikey"></a>
 
 ### apiKey
 
-```ts theme={null}
+```ts
 readonly apiKey: "TYPESAFE_API_KEY" = "TYPESAFE_API_KEY";
 ```
 
 Required API key; used when `apiKey` is omitted.
 
-<a id="sdk-baseurl" />
+<a id="sdk-baseurl"></a>
 
 ### baseURL
 
-```ts theme={null}
+```ts
 readonly baseURL: "TYPESAFE_BASE_URL" = "TYPESAFE_BASE_URL";
 ```
 
 API root; defaults to `https://api.typesafe.ai`.
 
-<a id="sdk-defaultmodel" />
+<a id="sdk-defaultmodel"></a>
 
 ### defaultModel
 
-```ts theme={null}
+```ts
 readonly defaultModel: "TYPESAFE_DEFAULT_MODEL" = "TYPESAFE_DEFAULT_MODEL";
 ```
 
 Default model name; defaults to `jev-latest`.
 
-<a id="sdk-loglevel" />
+<a id="sdk-loglevel"></a>
 
 ### logLevel
 
-```ts theme={null}
+```ts
 readonly logLevel: "TYPESAFE_LOG_LEVEL" = "TYPESAFE_LOG_LEVEL";
 ```
 

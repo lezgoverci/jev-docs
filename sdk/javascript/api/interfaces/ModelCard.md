@@ -14,30 +14,30 @@ Metadata for an available model.
 
 ## Properties
 
-<a id="sdk-description" />
+<a id="sdk-description"></a>
 
 ### description
 
-```ts theme={null}
+```ts
 readonly description: string;
 ```
 
 ***
 
-<a id="sdk-name" />
+<a id="sdk-name"></a>
 
 ### name
 
-```ts theme={null}
+```ts
 readonly name: string;
 ```
 
 ***
 
-<a id="sdk-release_date" />
+<a id="sdk-release_date"></a>
 
 ### release\_date
 
-```ts theme={null}
+```ts
 readonly release_date: string;
 ```

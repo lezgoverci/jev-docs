@@ -31,7 +31,7 @@ gets blocked, or routes to support.
 Run this TypeSafe check both on LLM inputs, and on LLM outputs, because even
 ordinary-looking prompts can lead to harmful generated replies.
 
-```mermaid actions={true} theme={null}
+```mermaid
   %%{init: {"flowchart": {"rankSpacing": 55, "wrappingWidth": 320}}}%%
 flowchart LR
     PIN["a user message<br/><i>on the way in</i>"] --> G
@@ -58,7 +58,7 @@ edit it in two places: the dict of hazard questions, and the two named routing p
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -68,7 +68,7 @@ API. Delete that file to run everything live.
 
 Numbers below came from `jev-1.12` on 2026-08-15.
 
-```python theme={null}
+```python
 import os
 import textwrap
 from pathlib import Path
@@ -96,7 +96,7 @@ are plain violations. The jailbreaks are real, taken verbatim from the public
 prompts](https://huggingface.co/datasets/TrustAIRLab/in-the-wild-jailbreak-prompts)
 collection.
 
-```python theme={null}
+```python
 def load_messages(path: str) -> dict[str, str]:
     """Read an `id: <name>` / body record file into an ordered `{id: text}` dict."""
     messages = {}
@@ -141,7 +141,7 @@ Both go in the same request, so the whole battery costs one call. The input and 
 batteries ask the same four things from the two sides: whether the user is asking for it,
 and whether the reply went ahead and gave it.
 
-```python expandable theme={null}
+```python
 def noul(instructions: str, yes: str, no: str) -> Noul:
     return Noul(instructions=instructions, criteria=NoulCriteria(true=yes, false=no))
 
@@ -229,7 +229,7 @@ block.
 A policy is just those numbers under a name, which makes the trade-off something a
 product picks rather than inherits.
 
-```python expandable theme={null}
+```python
 # A high-probability hazard triggers the product action below.
 HAZARD_ACTION = {
     "jailbreak": "block",
@@ -284,7 +284,7 @@ def guard(text: str, side: str, policy_name: str = DEFAULT_POLICY) -> str:
 Every sample message was screened: inputs with the input battery, replies with the
 output battery. All of them were routed under `strict`.
 
-```python theme={null}
+```python
 ICON = {"pass": "  pass  ", "review": " review ", "block": " BLOCK  ", "support": "support "}
 
 
@@ -354,7 +354,7 @@ so the review becomes a block.
 The next cell reuses one cached assessment and changes only the policy. The probabilities
 do not move; the application decides how much evidence it wants before it acts.
 
-```python theme={null}
+```python
 example_name = "neurosemantical"
 result = screen(PROMPTS[example_name], "input")
 hazard, probability = top_hazard(result)
@@ -379,7 +379,7 @@ permissive   review >= 0.35  action >= 0.85  ->  review
 
 Every screened message, numbered, so you can pick one to open up.
 
-```python theme={null}
+```python
 LOG = [(name, text, "input") for name, text in PROMPTS.items()]
 LOG += [(name, text, "output") for name, text in REPLIES.items()]
 
@@ -410,7 +410,7 @@ for i, (name, text, side) in enumerate(LOG):
 `interpret()` prints the full hazard breakdown for any row above. Pass a different
 `policy_name` to see the same assessment routed another way.
 
-```python theme={null}
+```python
 def interpret(index: int, policy_name: str = DEFAULT_POLICY) -> None:
     name, text, side = LOG[index]
     policy = POLICIES[policy_name]
@@ -461,7 +461,7 @@ thresholds in `POLICIES` from labeled examples of your own traffic.
 The link holds one demo prompt plus the input battery. Open it to run the same request
 live and edit the questions in the browser.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(PROMPTS["dan"], INPUT_BATTERY, models=[TYPESAFE_MODEL])
 display(Markdown(f"🔗 [Open the prompt + guardrail questions in the TypeSafe playground]({playground_link})"))
 ```

@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/Description.md
 
 # Type Alias: Description
 
-```ts theme={null}
+```ts
 type Description = EntryType;
 ```
 

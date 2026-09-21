@@ -12,11 +12,10 @@ local_path: model-jaggedness/jev-1.13.md
 
 > Jev isn't perfect. Here are some jagged edges we are aware of with jev-1.13. Many of these will be fixed in later versions.
 
-<Note>
-  **Applies to `jev-1.13`.** Last reviewed 2026-09-17.
-</Note>
+> [!NOTE]
+> **Applies to `jev-1.13`.** Last reviewed 2026-09-17.
 
-`jev-1.13` is fast, calibrated, and good at common-sense judgment but it is not perfect. `jev-1.13` does the best on [System One](/concepts/system-one) tasks. It may struggle with tasks that require additional levels of indirection. It can be quite literal in its understanding. It struggles with tasks that require numeric precision.
+`jev-1.13` is fast, calibrated, and good at common-sense judgment but it is not perfect. `jev-1.13` does the best on [System One](../concepts/system-one.md) tasks. It may struggle with tasks that require additional levels of indirection. It can be quite literal in its understanding. It struggles with tasks that require numeric precision.
 
 ## The failure modes in detail
 
@@ -50,7 +49,7 @@ Before asking a counting question, ask why the count needs a model at all. If th
 
 **Instead:** count in code. When you want to count items matching some criteria, iterate in code over the candidates and ask one question for each, then add up the answers yourself.
 
-```python theme={null}
+```python
 from typesafe_sdk import Noul, TypeSafeClient
 
 client = TypeSafeClient(model="jev-1.13")
@@ -87,9 +86,9 @@ Please do not use score outputs (e.g., expectations and probability) to compute 
 
 **Instead:** split the work. Extraction is a judgment, so give it to the model. Arithmetic is not, so keep it in code.
 
-Every part of a date is a small closed set: twelve months, thirty-one possible days, a bounded range of years. That turns extraction into a [Choice](/primitives/choice) over enumerated options rather than free-form parsing, and it gives you somewhere to put an explicit "not stated" option so a missing part is reported rather than guessed. Code assembles the parts into a real date and owns everything after that, including ordering, duration, offset, and weekday.
+Every part of a date is a small closed set: twelve months, thirty-one possible days, a bounded range of years. That turns extraction into a [Choice](../primitives/choice.md) over enumerated options rather than free-form parsing, and it gives you somewhere to put an explicit "not stated" option so a missing part is reported rather than guessed. Code assembles the parts into a real date and owns everything after that, including ordering, duration, offset, and weekday.
 
-The [date extraction cookbook](/cookbooks/date_extraction_cookbook) has the worked version, including relative dates and confidence gating.
+The [date extraction cookbook](../cookbooks/date_extraction_cookbook.md) has the worked version, including relative dates and confidence gating.
 
 ## Indirection
 
@@ -101,11 +100,10 @@ Instructions carrying double negatives or complex indirection are answered less 
 
 Accuracy falls as the state grows with content unrelated to the decision. Unrelated detail acts as a distractor, and a large state makes it harder to tell which part of the input produced a wrong answer.
 
-**Instead:** retrieve and filter in code first, and send only the fields the question needs. When it's not possible to filter in state, you can use a [Noul](/primitives/noul) to filter for relevance. The [classifying RAG passages cookbook](/cookbooks/classifying_rag_passages) has a worked example.
+**Instead:** retrieve and filter in code first, and send only the fields the question needs. When it's not possible to filter in state, you can use a [Noul](../primitives/noul.md) to filter for relevance. The [classifying RAG passages cookbook](../cookbooks/classifying_rag_passages.md) has a worked example.
 
-<Note>
-  **Context length limit.** `jev-1.13` has a bounded context window. See the [Models](/models) page for the exact token limits.
-</Note>
+> [!NOTE]
+> **Context length limit.** `jev-1.13` has a bounded context window. See the [Models](../models.md) page for the exact token limits.
 
 ## Adversarial content
 
@@ -124,7 +122,7 @@ When the `instructions` and the `criteria` ask for different things, `jev-1.13` 
 `jev-1.13` is extremely consistent, meaning you should expect quantitatively similar outputs for semantically similar inputs.
 However there are many structural invariants one might imagine to hold that simply aren't guaranteed by the model.
 
-For example, "Is the customer asking for a refund?", asked as a [Noul](/primitives/noul) and as a yes/no [Choice](/primitives/choice) on the ticket "I'm not happy with the fit. What are my options here?":
+For example, "Is the customer asking for a refund?", asked as a [Noul](../primitives/noul.md) and as a yes/no [Choice](../primitives/choice.md) on the ticket "I'm not happy with the fit. What are my options here?":
 
 | Noul `noul` | Choice `yes` | Choice `no` | Choice `confidence` |
 | ----------- | ------------ | ----------- | ------------------- |
@@ -140,23 +138,21 @@ The same question and its negation, "Is the customer asking for something other 
 
 There are many reasons that `P(noul)` and `1 - P(not noul)` may not be directly comparable.
 
-**Instead:** don't rely on expected structural invariance, and word questions to mean directly what you want. Don't carry a threshold tuned on a Noul over to a Choice, and don't hold the model to arithmetic identities between separate questions. A Choice over options and one Noul per option answer different questions: the Choice is relative, settling *which* option, while each Noul is absolute and can be low for all of them. The [skill suggestion cookbook](/cookbooks/skill_suggestion) uses both on the same shortlist, the Choice to pick a skill and the Nouls to decide whether to suggest one at all.
+**Instead:** don't rely on expected structural invariance, and word questions to mean directly what you want. Don't carry a threshold tuned on a Noul over to a Choice, and don't hold the model to arithmetic identities between separate questions. A Choice over options and one Noul per option answer different questions: the Choice is relative, settling *which* option, while each Noul is absolute and can be low for all of them. The [skill suggestion cookbook](../cookbooks/skill_suggestion.md) uses both on the same shortlist, the Choice to pick a skill and the Nouls to decide whether to suggest one at all.
 
 ## Generation
 
 `jev-1.13` is not trained to generate text. While you can force it to by chaining choices, this will not work well and will be very slow. For data extraction, it is better to extract possible options using regex or a generative model and let `jev-1.13` pick the correct extraction.
 
-**Instead:** when the answer space is bounded, turn extraction into a [Choice](/primitives/choice) over the options rather than asking for the value itself. If you really need to generate text... there are other models for that.
+**Instead:** when the answer space is bounded, turn extraction into a [Choice](../primitives/choice.md) over the options rather than asking for the value itself. If you really need to generate text... there are other models for that.
 
-<Info>
-  **As a reminder, avoid the following:**
+> [!NOTE]
+> **As a reminder, avoid the following:**
+>
+> * Asking the model something code can compute exactly.
+> * Hiding several judgments inside one question.
+> * System Two tasks: more layers of indirections
+> * Giving it more context in `state` than the question needs. Jev suffers from context rot, so unrelated material in the `state` costs you accuracy.
 
-  * Asking the model something code can compute exactly.
-  * Hiding several judgments inside one question.
-  * System Two tasks: more layers of indirections
-  * Giving it more context in `state` than the question needs. Jev suffers from context rot, so unrelated material in the `state` costs you accuracy.
-</Info>
-
-<Tip>
-  Found a failure mode that belongs on this list? We want to hear about it. Reach us on [Discord](https://discord.com/invite/WUujKYBp8s).
-</Tip>
+> [!TIP]
+> Found a failure mode that belongs on this list? We want to hear about it. Reach us on [Discord](https://discord.com/invite/WUujKYBp8s).

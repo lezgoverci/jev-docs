@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/ScoreCriteria.md
 
 # Type Alias: ScoreCriteria
 
-```ts theme={null}
+```ts
 type ScoreCriteria = readonly [EntryType, EntryType, ...EntryType[]];
 ```
 

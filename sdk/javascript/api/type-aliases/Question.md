@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/Question.md
 
 # Type Alias: Question
 
-```ts theme={null}
+```ts
 type Question = 
   | NoulQuestion
   | ScoreQuestion

@@ -14,11 +14,11 @@ Token usage for a request.
 
 ## Properties
 
-<a id="sdk-input_tokens" />
+<a id="sdk-input_tokens"></a>
 
 ### input\_tokens
 
-```ts theme={null}
+```ts
 readonly input_tokens: number;
 ```
 
@@ -26,11 +26,11 @@ Number of input tokens used.
 
 ***
 
-<a id="sdk-output_tokens" />
+<a id="sdk-output_tokens"></a>
 
 ### output\_tokens
 
-```ts theme={null}
+```ts
 readonly output_tokens: number;
 ```
 

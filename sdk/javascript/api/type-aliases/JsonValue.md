@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/JsonValue.md
 
 # Type Alias: JsonValue
 
-```ts theme={null}
+```ts
 type JsonValue = 
   | string
   | number

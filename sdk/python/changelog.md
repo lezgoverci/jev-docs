@@ -12,7 +12,7 @@ local_path: sdk/python/changelog.md
 
 > Python clients for the TypeSafe AI API
 
-<a id="changelog" />
+<a id="changelog"></a>
 
 <h2 id="v070-2026-09-18">
   v0.7.0 (2026-09-18)

@@ -36,7 +36,7 @@ right 90% of the time; the other half, 40%. Reported one level up, that 40% beco
 end with a `classify()` function that returns a label plus how specific it is, at one
 request per document.
 
-```mermaid actions={true} theme={null}
+```mermaid
 flowchart LR
     doc["Item 1 'Business'<br/>from one 10-K"]
 
@@ -56,7 +56,7 @@ flowchart LR
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython matplotlib "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -66,7 +66,7 @@ Delete that file to re-run everything live.
 
 Numbers below came from `jev-1.12` on 2026-08-12.
 
-```python theme={null}
+```python
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -105,7 +105,7 @@ production to `99` non-classifiable), and fixed ranges of major groups make up t
 Both levels come out of that one file with no model involved: group the codes by their
 first two digits, then map those digits to a division.
 
-```python expandable theme={null}
+```python
 DIVISIONS = [
     (1, 9, "agriculture, forestry and fishing"),
     (10, 14, "mining"),
@@ -153,7 +153,7 @@ there: 42 of the 75 carry an umbrella title in the SEC's list, and the rest carr
 each group is described by the industries inside it, which is what someone reading the
 filing would match against anyway.
 
-```python theme={null}
+```python
 MAX_NAMED = (
     8  # industries listed per group; enough to characterise it without a wall of text
 )
@@ -193,7 +193,7 @@ business the code names and keeps the code. These 60 were filtered down to filin
 own text supports the code they carry, so the numbers here measure the recipe rather than
 the state of EDGAR's metadata.
 
-```python theme={null}
+```python
 FILINGS = [json.loads(line) for line in Path("filings.jsonl").read_text().splitlines()]
 example = FILINGS[7]
 print(
@@ -223,7 +223,7 @@ of the 75; and `confidence`, which says how concentrated that spread was. The re
 0.44, and a winner at 0.45 with the rest of the weight scattered thinly, are different
 situations, and `confidence` is what separates them.
 
-```python theme={null}
+```python
 QUESTION = (
     "Which broad industry does this company operate in? Judge the company's own operations "
     "as this filing describes them."
@@ -262,7 +262,7 @@ Every filing still comes back with a usable label. One the model could not class
 confidently comes back one level up instead of being dropped or sent on. If a division is
 too coarse for your application to act on, this branch is where you hand it to a person.
 
-```python theme={null}
+```python
 def classify(filing: dict) -> dict:
     answer = ask(filing["id"], filing["text"])
     sure = answer["confidence"] >= CONFIDENT
@@ -320,7 +320,7 @@ three come back as a division rather than a group.
 All 60 filings, scored against the code each filer chose, under both policies: name a group
 every time, or report the division whenever confidence lands under 0.9.
 
-```python theme={null}
+```python
 def correct(filing: dict, result: dict) -> bool:
     gold_group = filing["sic"][:2]
     if result["level"] == "group":
@@ -363,7 +363,7 @@ division takes them to 70%.
 
 The chart puts the two policies side by side, split by whether the model was sure.
 
-```python expandable theme={null}
+```python
 labels = ["sure\n(group reported)", "unsure\n(division reported)"]
 forced_split = [
     sum(r["group"] == f["sic"][:2] for f, r in sure) / len(sure),
@@ -413,7 +413,7 @@ display(fig)
 This share link holds one filing and the 75-option question, so you can see the
 distribution and the confidence it produces without writing any code.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(
     example["text"], questions(), models=[TYPESAFE_MODEL]
 )

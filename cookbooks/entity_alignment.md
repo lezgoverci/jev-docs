@@ -49,7 +49,7 @@ information for the curator, if the score lands neither in the "same product" no
 You end up with a `route()` that takes one candidate pair and returns one of the three
 outcomes, with no threshold you had to fit to your own data.
 
-```mermaid actions={true} theme={null}
+```mermaid
 flowchart LR
     PAIR["one candidate pair<br/><i>both entities, one state</i>"] --> CALL
 
@@ -73,7 +73,7 @@ flowchart LR
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install matplotlib ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -83,7 +83,7 @@ that file to re-run everything live.
 
 Numbers below came from `jev-1.12` on 2026-08-11.
 
-```python theme={null}
+```python
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor
@@ -124,7 +124,7 @@ characters decoded wrongly.
 One request goes out per pair, so what you spend follows the number of pairs you were
 handed rather than the size of either source.
 
-```python theme={null}
+```python
 PAIRS = json.loads(Path("candidate_pairs.json").read_text(encoding="utf-8"))
 BY_ID = {pair["id"]: pair for pair in PAIRS}
 
@@ -172,7 +172,7 @@ gets none, because comparing two numbers is arithmetic; compute it in code if yo
 To use this on another kind of data you rewrite `QUESTIONS` and `LEVELS`. The only other
 code that knows about beer is the two functions that print results, which name the fields.
 
-```python expandable theme={null}
+```python
 LEVELS = [
     "They describe two different products.",
     "They describe closely related products that may or may not be the same one: "
@@ -246,7 +246,7 @@ Four pairs. `c446` is one product and `c427` is two. The other two land in the m
 for different reasons: `c100` has the same name and brewery but the sources word its style
 differently, while `c428` pairs a beer with a fruit-and-hop variant of it.
 
-```python theme={null}
+```python
 for pair_id in ("c446", "c427", "c100", "c428"):
     show(pair_id)
     print()
@@ -276,7 +276,7 @@ c428  score 1.10  confidence 0.77  ->  curator queue
 
 ## Route every candidate pair
 
-```python expandable theme={null}
+```python
 # 450 candidate pairs, one request each; a small pool keeps a live run to a few minutes.
 with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
     scored = list(pool.map(lambda pair: score(pair["id"]), PAIRS))
@@ -363,7 +363,7 @@ The playground link below opens `c428`, which scored 1.10 and went to the curato
 It pairs *Ambleside Amber Ale* with *Bridge Ambleside Amber Ale - Pomegranate & Galena
 Hops*: same brewery, same alcohol content. All four questions come with it.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(
     {"entity_a": BY_ID["c428"]["entity_a"], "entity_b": BY_ID["c428"]["entity_b"]},
     QUESTIONS,

@@ -14,11 +14,11 @@ A yes/no question with optional descriptions for either outcome.
 
 ## Properties
 
-<a id="sdk-criteria" />
+<a id="sdk-criteria"></a>
 
 ### criteria?
 
-```ts theme={null}
+```ts
 optional criteria?: 
   | {
   false?: EntryType;
@@ -33,7 +33,7 @@ Optional descriptions of the yes and no outcomes.
 
 ##### Type Literal
 
-```ts theme={null}
+```ts
 {
   false?: EntryType;
   true?: EntryType;
@@ -42,7 +42,7 @@ Optional descriptions of the yes and no outcomes.
 
 ##### false?
 
-```ts theme={null}
+```ts
 optional false?: EntryType;
 ```
 
@@ -50,7 +50,7 @@ Description of the no outcome.
 
 ##### true?
 
-```ts theme={null}
+```ts
 optional true?: EntryType;
 ```
 
@@ -62,11 +62,11 @@ Description of the yes outcome.
 
 ***
 
-<a id="sdk-instructions" />
+<a id="sdk-instructions"></a>
 
 ### instructions?
 
-```ts theme={null}
+```ts
 optional instructions?: EntryType;
 ```
 
@@ -74,10 +74,10 @@ The question as text, a JSON object, or an array; optional or `null`.
 
 ***
 
-<a id="sdk-type" />
+<a id="sdk-type"></a>
 
 ### type
 
-```ts theme={null}
+```ts
 type: "noul";
 ```

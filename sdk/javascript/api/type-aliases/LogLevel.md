@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/LogLevel.md
 
 # Type Alias: LogLevel
 
-```ts theme={null}
+```ts
 type LogLevel = "debug" | "info" | "warn" | "error" | "off";
 ```
 

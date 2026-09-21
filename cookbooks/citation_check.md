@@ -24,7 +24,7 @@ To automate that check, we first look for missing quotes with an ordinary string
 and then we use a `Choice` question to read each surviving quote's context and decide
 whether it supports the claim.
 
-```mermaid actions={true} theme={null}
+```mermaid
   %%{init: {"flowchart": {"wrappingWidth": 330}}}%%
 flowchart LR
     cite["source document + citation"]
@@ -62,7 +62,7 @@ and returns one of four verdicts: `verified`, `unsupported`, `contradicted`, or
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -72,7 +72,7 @@ API. Delete that file to run everything live.
 
 Numbers below came from `jev-1.12` on 2026-08-16.
 
-```python theme={null}
+```python
 import json
 import os
 import re
@@ -103,7 +103,7 @@ below strips the page headers and footers, then splits the text into numbered se
 The eight citations in `citations.json` were written by an LLM against the RFC. Four are
 accurate; we edited the other four to fail the check.
 
-```python expandable theme={null}
+```python
 def load_source() -> str:
     """RFC 7519 verbatim, minus the page headers and footers that interrupt its paragraphs."""
     lines = []
@@ -170,7 +170,7 @@ from, and that section is the text the model reads in the next step.
 A citation can name a section without quoting anything from it. There is nothing to match
 in that case, so take the section the citation names and go straight to the model.
 
-```python theme={null}
+```python
 def normalize(text: str) -> str:
     """Collapse whitespace and fold curly quotes, so a quote matches across line wraps."""
     table = str.maketrans({"“": '"', "”": '"', "‘": "'", "’": "'"})
@@ -229,7 +229,7 @@ code above) decides what happens to it:
 
 Start high, and lower the threshold as you see how the model does on your own documents.
 
-```python expandable theme={null}
+```python
 QUESTIONS = {
     "relation": Choice(
         instructions="How does the section relate to the claim?",
@@ -289,7 +289,7 @@ def check_citation(sections: dict[str, str], citation: dict) -> dict:
 
 All eight citations through the same check:
 
-```python theme={null}
+```python
 print(f"{'citation':<18}{'quote':<14}{'relation':<14}{'conf':>6}  {'verdict':<13}{'action':>7}")
 for citation in CITATIONS:
     result = check_citation(SECTIONS, citation)
@@ -342,7 +342,7 @@ would need fuzzy matching instead.
 The link holds one citation's claim and section, plus the question. Open it to run the same
 call live in the browser.
 
-```python theme={null}
+```python
 example = next(c for c in CITATIONS if c["id"] == "exp_required")
 _, example_section = locate(SECTIONS, example)
 playground_link = make_playground_link(

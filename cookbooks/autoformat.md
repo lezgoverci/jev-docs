@@ -48,7 +48,7 @@ memo.
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -56,7 +56,7 @@ then set `TYPESAFE_API_KEY`. Every API call is cached in `json_cache.json`, whic
 with the cookbook, so re-rendering replays the published numbers without calling the API.
 Delete that file to re-run everything live.
 
-```python theme={null}
+```python
 import os
 import re
 import urllib.request
@@ -80,7 +80,7 @@ plain-text inbox: paragraphs hard-wrapped mid-sentence, a shell command sitting 
 line, two lists with no bullets or numbers, a warning with nothing marking it as one. The
 text is fetched from a pinned gist so the cookbook's numbers stay reproducible.
 
-```python theme={null}
+```python
 GIST = (
     "https://gist.githubusercontent.com/eugene-shvarts/6df7daf97233bf92bcdd6b386a0fa561"
     "/raw/5da03690611fb6ddcbaabdb91fb9f91d9751b113/build-memo.txt"
@@ -122,9 +122,9 @@ Line splitting, blank-line tracking, and id tagging all happen in code; no model
 involved.
 Each line gets a short id (`L014| `); the ids are ordinary text the model reads as part of
 the state, and questions and answers refer to lines by these ids (the same scheme as the
-[semantic search cookbook](/cookbooks/semantic_find)).
+[semantic search cookbook](./semantic_find.md)).
 
-```python theme={null}
+```python
 def to_lines(text: str) -> list[dict]:
     lines, gap = [], False
     for raw in text.split("\n"):
@@ -173,7 +173,7 @@ blank line are skipped. The question is deliberately narrow ("does this line pic
 mid-sentence?"), which is close to an objective fact about the text. The appendix covers
 both the wording choice and how the merge thresholds were derived.
 
-```python expandable theme={null}
+```python
 def join_question(i: int) -> Noul:
     return Noul(
         instructions=f"Does line {line_id(i)} pick up mid-sentence, continuing a sentence left unfinished at the end of line {line_id(i - 1)}?",
@@ -216,7 +216,7 @@ with no sentence-ending punctuation), a join probability of 0.2 or above merges 
 pair; after terminal punctuation (`.` `!` `?` `:` `;`), the cutoff rises to 0.5. The
 appendix walks through the probabilities behind the two numbers.
 
-```python theme={null}
+```python
 JOIN_AFTER_DANGLING, JOIN_AFTER_TERMINAL = 0.2, 0.5
 
 
@@ -277,7 +277,7 @@ dicts, plus the step question's true/false criteria inside `classify_questions` 
 are the entire specification of the classifier. There is no other logic. To adapt the
 pipeline to your own documents, edit these descriptions.
 
-```python theme={null}
+```python
 TYPE_CRITERIA = {
     "heading": "A short label or title that names the document or the section that follows it - not a full sentence of content",
     "paragraph": "Running prose: one or more complete sentences of explanatory or narrative text",
@@ -307,7 +307,7 @@ means nothing and is simply ignored. An extra question adds little, since the st
 most of the tokens and is sent once either way, while an extra round trip adds a full
 request of latency.
 
-```python expandable theme={null}
+```python
 HEADING_MAX_CHARS = 90  # longer blocks can't render as headings, so don't ask
 
 
@@ -418,7 +418,7 @@ numbered when the mean of the items' step probabilities is at least 0.5. That th
 is a
 group-level decision no single question asked directly.
 
-````python expandable theme={null}
+````python
 STEP_THRESHOLD = 0.5
 HEADING_MARK = {"title": "#", "section": "##", "subsection": "###"}
 CALLOUT_MARK = {"note": "NOTE", "tip": "TIP", "warning": "WARNING"}
@@ -456,7 +456,7 @@ markdown = to_markdown(blocks)
 print(markdown)
 ````
 
-````text expandable theme={null}
+````text
 # Migration to the new build system
 
 Hi everyone, quick heads up about the build system migration that is happening next week. We have been running the new pipeline in shadow mode for three weeks and the results look solid, so it is time to make the switch for real.
@@ -499,7 +499,7 @@ markup.
 This share link holds the stitched blocks and the full pass-2 question set. Open it to
 re-run the classification live.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(
     tag(blocks, "B"),
     classify_questions([b["text"] for b in blocks]),
@@ -516,7 +516,7 @@ display(Markdown(f"🔗 [Open the stitched memo + questions in the TypeSafe play
 
 ## Cost and latency
 
-```python theme={null}
+```python
 tokens = [result["usage"], classified["usage"]]
 total_in, total_out = sum(t[0] for t in tokens), sum(t[1] for t in tokens)
 cost = total_in / 1e6 * PRICE[0] + total_out / 1e6 * PRICE[1]
@@ -539,7 +539,7 @@ Two round trips, 10,211 tokens, 0.8s, \$0.0015.
 
 The per-line join probabilities from pass 1:
 
-```python theme={null}
+```python
 print("join  line")
 for i, line in enumerate(LINES[:18]):
     join = "    " if i == 0 or line["gap"] else f"{result['joins'][i]:.2f}"
@@ -595,7 +595,7 @@ the stitch pass merges the whole list into one long block.
 
 Same document, same request shape, only the wording changed:
 
-```python theme={null}
+```python
 def naive_join_question(i: int) -> Noul:
     return Noul(
         instructions=f"Are lines {line_id(i - 1)} and {line_id(i)} part of the same paragraph?",
@@ -635,7 +635,7 @@ difference between 17 blocks and 12.
 
 ## The lowest-confidence block
 
-```python theme={null}
+```python
 uncertain = min(blocks, key=lambda b: b["confidence"])
 print(f'"{uncertain["text"]}"')
 print(f"confidence {uncertain['confidence']:.2f}: ", end="")

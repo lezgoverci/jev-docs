@@ -8,7 +8,7 @@ local_path: sdk/javascript/api/interfaces/WithResponse.md
 > Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Interface: WithResponse<T>
+# Interface: WithResponse\<T\>
 
 Parsed data with its HTTP response and request ID.
 
@@ -20,11 +20,11 @@ Parsed data with its HTTP response and request ID.
 
 ## Properties
 
-<a id="sdk-data" />
+<a id="sdk-data"></a>
 
 ### data
 
-```ts theme={null}
+```ts
 data: T;
 ```
 
@@ -32,11 +32,11 @@ The parsed response body.
 
 ***
 
-<a id="sdk-requestid" />
+<a id="sdk-requestid"></a>
 
 ### requestId
 
-```ts theme={null}
+```ts
 requestId: string | undefined;
 ```
 
@@ -44,11 +44,11 @@ Request ID from `x-typesafe-request-id`, or `undefined` when absent.
 
 ***
 
-<a id="sdk-response" />
+<a id="sdk-response"></a>
 
 ### response
 
-```ts theme={null}
+```ts
 response: Response;
 ```
 

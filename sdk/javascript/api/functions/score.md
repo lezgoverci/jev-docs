@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/functions/score.md
 
 # Function: score()
 
-```ts theme={null}
+```ts
 function score<T>(instructions, criteria): ScoreQuestion<T>;
 ```
 
@@ -20,13 +20,13 @@ Create a score question using an ordered rubric.
 
 ### T
 
-`T` *extends* [`ScoreCriteria`](/sdk/javascript/api/type-aliases/ScoreCriteria)
+`T` *extends* [`ScoreCriteria`](../type-aliases/ScoreCriteria.md)
 
 ## Parameters
 
 ### instructions
 
-[`EntryType`](/sdk/javascript/api/type-aliases/EntryType)
+[`EntryType`](../type-aliases/EntryType.md)
 
 The question as text, a JSON object or array, or `null`.
 
@@ -38,4 +38,4 @@ At least two descriptions indexed by score from zero; entries may be `null`.
 
 ## Returns
 
-[`ScoreQuestion`](/sdk/javascript/api/interfaces/ScoreQuestion)\<`T`>
+[`ScoreQuestion`](../interfaces/ScoreQuestion.md)\<`T`>

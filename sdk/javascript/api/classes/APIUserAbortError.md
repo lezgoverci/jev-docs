@@ -14,15 +14,15 @@ The caller cancelled the request through an `AbortSignal`.
 
 ## Extends
 
-* [`TypeSafeError`](/sdk/javascript/api/classes/TypeSafeError)
+* [`TypeSafeError`](./TypeSafeError.md)
 
 ## Constructors
 
-<a id="sdk-constructor" />
+<a id="sdk-constructor"></a>
 
 ### Constructor
 
-```ts theme={null}
+```ts
 new APIUserAbortError(message?, options?): APIUserAbortError;
 ```
 
@@ -42,4 +42,4 @@ new APIUserAbortError(message?, options?): APIUserAbortError;
 
 #### Overrides
 
-[`TypeSafeError`](/sdk/javascript/api/classes/TypeSafeError).[`constructor`](/sdk/javascript/api/classes/TypeSafeError#sdk-constructor)
+[`TypeSafeError`](./TypeSafeError.md).[`constructor`](./TypeSafeError.md#sdk-constructor)

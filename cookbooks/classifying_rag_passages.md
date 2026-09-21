@@ -38,7 +38,7 @@ cosine-similarity search that keeps the top 12 passages per query, the four
 that label each one, the prompt assembled from separate evidence and conflict blocks, and
 the answers `claude-sonnet-5` writes from it.
 
-```mermaid actions={true} theme={null}
+```mermaid
   %%{init: {"flowchart": {"rankSpacing": 90}}}%%
 flowchart LR
     RET["fast search<br/><i>top 12 by similarity</i>"] --> CALL
@@ -73,7 +73,7 @@ flowchart LR
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install anthropic openai matplotlib ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -86,7 +86,7 @@ cookbook and replays every recorded call, so a re-render costs nothing. Delete t
 run the pipeline live instead. The numbers here came out of `jev-1.12` and
 `claude-sonnet-5` on 2026-08-27.
 
-```python expandable theme={null}
+```python
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor
@@ -150,7 +150,7 @@ model.
 We also wrote two of the six queries to state a premise the docs contradict, so the
 injection and conflict routes both have something to catch.
 
-```python theme={null}
+```python
 PASSAGES = json.loads(Path("corpus.json").read_text(encoding="utf-8"))
 BY_ID = {p["id"]: p for p in PASSAGES}
 
@@ -188,7 +188,7 @@ Rank the passages by cosine similarity over embeddings, using `text-embedding-3-
 shipped cache small, and the embedding calls are cached with everything else, so the
 vectors travel inside `json_cache.json`.
 
-```python expandable theme={null}
+```python
 @json_cache
 def embed(texts: tuple[str, ...]) -> list[list[float]]:
     """One call for many texts; the tuple argument keeps the cache key small and hashable."""
@@ -234,7 +234,7 @@ QUERIES = [
 
 The 12 passages retrieved for the first query:
 
-```python theme={null}
+```python
 for passage in retrieve(HEADLINE_QUERY, TOP_K):
     print(
         f"  {passage['similarity']:.3f}  {passage['id']:<22}"
@@ -267,7 +267,7 @@ the query from the one trying to hijack the answer.
 Put the query and one passage in the state together, so every question is about the pair
 rather than the passage alone. Shape:
 
-```json theme={null}
+```json
 {
   "query": "Refresh tokens expire after 30 days - how do I extend that window?",
   "passage": {
@@ -291,7 +291,7 @@ Four `Noul` questions, and what each answer drives:
 None of the four asks whether to include the passage. That call sits in the code below,
 where changing it means editing a number instead of rewording a question.
 
-```python expandable theme={null}
+```python
 PASSAGE_QUESTIONS = {
     "is_relevant": Noul(
         instructions="Does this passage address the subject of the query?",
@@ -361,13 +361,12 @@ contradiction test comes before the evidence test because a passage that denies 
 query's premise usually states something usable too; tested the other way round, it would
 land in the accepted block instead of the conflict one.
 
-<Info>
-  We picked these four numbers for this corpus. Treat them as a starting point, not
-  defaults. Moving one is cheap: `THRESHOLDS` holds all four and `route()` reads only the
-  stored answers, so re-routing every passage costs no API calls.
-</Info>
+> [!NOTE]
+> We picked these four numbers for this corpus. Treat them as a starting point, not
+> defaults. Moving one is cheap: `THRESHOLDS` holds all four and `route()` reads only the
+> stored answers, so re-routing every passage costs no API calls.
 
-```python expandable theme={null}
+```python
 def route(answers: dict, thresholds: dict = THRESHOLDS) -> str:
     if answers["contains_prompt_injection"] > thresholds["injection_max"]:
         return "exclude"
@@ -438,7 +437,7 @@ injection score of 0.99 is what drops it.
 Nothing reaches the prompt as evidence, which is right for a question built on a false
 premise. Below, the same table for a query the docs do answer.
 
-```python theme={null}
+```python
 print(f'"{QUERIES[5]}"\n')
 show_routes(ROUTED[QUERIES[5]])
 ```
@@ -482,7 +481,7 @@ here `claude-sonnet-5`. Keep accepted and conflicting evidence in separate block
 Two blocks let the answer push back. Merge them into one and the generator has no way to
 tell a passage that answers the query from one that denies its premise.
 
-```python expandable theme={null}
+```python
 PROMPT = """Answer the query using only the supplied evidence.
 
 Rules:
@@ -574,7 +573,7 @@ how do I
 extend that window?*; the second is to an ordinary question the docs do answer, whose 12
 retrieved passages included `forum-injection` and its injected instruction.
 
-```python theme={null}
+```python
 SHOWN = [HEADLINE_QUERY, QUERIES[5]]
 for query in SHOWN:
     routed = ROUTED[query]
@@ -586,7 +585,7 @@ for query in SHOWN:
     print(answer(query))
 ```
 
-```text expandable theme={null}
+```text
 
 ========================================================================================
 "Refresh tokens expire after 30 days - how do I extend that window?"
@@ -629,7 +628,7 @@ injected instruction reaches the text.
 
 ## Compare the six queries
 
-```python expandable theme={null}
+```python
 SURFACE, INK, INK2, MUTED = "#fcfcfb", "#0b0b0b", "#52514e", "#898781"
 GRID, AXIS, BLUE, ORANGE = "#e1e0d9", "#c3c2b7", "#2a78d6", "#eb6834"
 
@@ -726,7 +725,7 @@ tokens rotated?*
 Open the link below to re-run one call live: the first query against the passage that
 routed to the conflict block, plus the four questions.
 
-```python theme={null}
+```python
 linked = next(r for r in ROUTED[HEADLINE_QUERY] if r["route"] == "conflicting_evidence")
 deeplink = make_playground_link(
     gate_document(HEADLINE_QUERY, linked["passage"]),

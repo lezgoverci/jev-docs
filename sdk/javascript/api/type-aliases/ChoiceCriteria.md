@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/ChoiceCriteria.md
 
 # Type Alias: ChoiceCriteria
 
-```ts theme={null}
+```ts
 type ChoiceCriteria = object;
 ```
 
@@ -18,6 +18,6 @@ Labels mapped to descriptions, or `null` for undescribed labels.
 
 ## Index Signature
 
-```ts theme={null}
+```ts
 [label: string]: EntryType
 ```

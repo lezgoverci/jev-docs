@@ -48,13 +48,13 @@ local_path: cookbooks/sde_cascade.md
 * install the dependencies (the TypeSafe verifier client is served from TypeSafe's package
   index):
 
-```bash theme={null}
+```bash
 pip install openai datasets jsonschema ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
 * then set `OPENAI_API_KEY` and `TYPESAFE_API_KEY` in your environment
 
-```python theme={null}
+```python
 import json
 import os
 from pathlib import Path
@@ -80,7 +80,7 @@ ts = TypeSafeClient(api_key=os.environ["TYPESAFE_API_KEY"], timeout=30.0)
 
 We choose a huggingface dataset called scrapegraphai
 
-```python theme={null}
+```python
 SCRAPEGRAPHAI_REVISION = "4bb9fba1dff9181c5acdb60a5a26fea62fa54fe9"
 row = load_dataset(
     "scrapegraphai/scrapegraphai-100k",
@@ -108,7 +108,7 @@ CONTENT
 )
 ```
 
-```text expandable theme={null}
+```text
 PROMPT
 ===========
 Find registration open date fall semester for New York University in New York, NY for the 2024-2025 school year.
@@ -264,7 +264,7 @@ Unless otherwise noted, all content copyright New York University. All rights re
   the verifier flags at P(wrong) > 0.8). A real pipeline would just take `extract(MINI,
   prompt, schema, content, temperature=0)` directly.
 
-```python expandable theme={null}
+```python
 EXTRACT_SYSTEM = (
     "You extract structured data from documents. Return only values supported by the text. "
     "Follow any value format specified by the schema or its field descriptions."
@@ -364,7 +364,7 @@ schema-valid: True
     tunable and interpretable.
   * <img src="https://mintcdn.com/ts-docs/2NirYCl-v96cw05F/cookbooks/sde_cascade/this_is_the_way.jpg?fit=max&auto=format&n=2NirYCl-v96cw05F&q=85&s=10bd7d99dc5f679022bb6763dde57330" alt="this is the way" width="100" height="56" data-path="cookbooks/sde_cascade/this_is_the_way.jpg" />
 
-```python expandable theme={null}
+```python
 # metric -> (question, NoulCriteria)
 MAIN_QUESTIONS = {
     "name_desc_mismatch": (
@@ -516,7 +516,7 @@ def verify(record: dict) -> dict[str, float | str]:
 
 ### Run the whole battery over the mini extraction
 
-```python theme={null}
+```python
 checks = verify(mini_record)
 playground_link = checks.pop("playground_link")
 display(
@@ -561,7 +561,7 @@ description::type_mismatch                   0.02
 * this is a `max`-style gate (escalate if *any* field fires), not a mean, so one confident
   red flag is enough instead of being averaged into silence
 
-```python theme={null}
+```python
 # any_flag is a per-field gate: the holistic __overall__ head is shown above but not part of it
 fired = {
     qid: p
@@ -587,7 +587,7 @@ any_flag gate (threshold 0.7): ESCALATE
 
 Since a signal fired, we pay for the strong model (`gpt-5.5`, `reasoning_effort="high"`)
 
-```python theme={null}
+```python
 final_record = (
     extract(REASONING, prompt, schema, content, reasoning_effort="high")
     if escalate

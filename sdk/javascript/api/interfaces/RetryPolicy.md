@@ -14,11 +14,11 @@ Retry configuration. Partial overrides inherit unset fields from the client or S
 
 ## Properties
 
-<a id="sdk-apiconnectionerror" />
+<a id="sdk-apiconnectionerror"></a>
 
 ### apiConnectionError
 
-```ts theme={null}
+```ts
 readonly apiConnectionError: boolean;
 ```
 
@@ -26,11 +26,11 @@ Retry connection failures, including interrupted response bodies (`APIConnection
 
 ***
 
-<a id="sdk-apitimeouterror" />
+<a id="sdk-apitimeouterror"></a>
 
 ### apiTimeoutError
 
-```ts theme={null}
+```ts
 readonly apiTimeoutError: boolean;
 ```
 
@@ -38,11 +38,11 @@ Whether to retry `APITimeoutError`. Default: true.
 
 ***
 
-<a id="sdk-backoffinitialms" />
+<a id="sdk-backoffinitialms"></a>
 
 ### backoffInitialMs
 
-```ts theme={null}
+```ts
 readonly backoffInitialMs: number;
 ```
 
@@ -50,11 +50,11 @@ First backoff delay in milliseconds, doubled up to `backoffMaxMs`. Default: 500.
 
 ***
 
-<a id="sdk-backoffjitter" />
+<a id="sdk-backoffjitter"></a>
 
 ### backoffJitter
 
-```ts theme={null}
+```ts
 readonly backoffJitter: number;
 ```
 
@@ -62,11 +62,11 @@ Fraction of each backoff delay randomly subtracted, from 0 to 1. Default: 0.25.
 
 ***
 
-<a id="sdk-backoffmaxms" />
+<a id="sdk-backoffmaxms"></a>
 
 ### backoffMaxMs
 
-```ts theme={null}
+```ts
 readonly backoffMaxMs: number;
 ```
 
@@ -74,11 +74,11 @@ Maximum backoff delay in milliseconds. Default: 5000.
 
 ***
 
-<a id="sdk-httpstatuses" />
+<a id="sdk-httpstatuses"></a>
 
 ### httpStatuses
 
-```ts theme={null}
+```ts
 readonly httpStatuses: ReadonlySet<number>;
 ```
 
@@ -86,11 +86,11 @@ HTTP status codes to retry. Default: 408, 429, and 500–599.
 
 ***
 
-<a id="sdk-maxretries" />
+<a id="sdk-maxretries"></a>
 
 ### maxRetries
 
-```ts theme={null}
+```ts
 readonly maxRetries: number;
 ```
 
@@ -98,11 +98,11 @@ Maximum retries after the initial attempt; `0` disables retries. Default: 2.
 
 ***
 
-<a id="sdk-maxretryafterms" />
+<a id="sdk-maxretryafterms"></a>
 
 ### maxRetryAfterMs
 
-```ts theme={null}
+```ts
 readonly maxRetryAfterMs: number;
 ```
 
@@ -110,11 +110,11 @@ Maximum server retry delay in milliseconds; longer delays use backoff. Default: 
 
 ***
 
-<a id="sdk-respectretryafter" />
+<a id="sdk-respectretryafter"></a>
 
 ### respectRetryAfter
 
-```ts theme={null}
+```ts
 readonly respectRetryAfter: boolean;
 ```
 

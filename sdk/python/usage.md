@@ -12,71 +12,75 @@ local_path: sdk/python/usage.md
 
 > Guides and patterns for working with the TypeSafe Python SDK.
 
-<a id="usage" />
+<a id="usage"></a>
 
 <h2 id="calling-the-system-one-api">
   Calling the System One API
 </h2>
 
-<Tabs>
-  <Tab title="Async">
-    ```python theme={null}
-    import asyncio
 
-    from typesafe_sdk import AsyncTypeSafeClient, Choice, Noul, Score
+  
+**Async:**
 
+```python
+import asyncio
 
-    async def main() -> None:
-        async with AsyncTypeSafeClient() as client:
-            result = await client.system_one(
-                "I was charged twice. Please help ASAP.",
-                {
-                    "billing": Noul(instructions="Is this about billing?"),
-                    "tone": Choice(
-                        instructions="What is the tone?",
-                        criteria={"calm": None, "angry": None},
-                    ),
-                    "urgency": Score(
-                        instructions="How urgent is this?",
-                        criteria=["low", "medium", "high"],
-                    ),
-                },
-            )
-            print(
-                result.nouls["billing"].noul,
-                result.choices["tone"].choice,
-                result.scores["urgency"].score,
-            )
+from typesafe_sdk import AsyncTypeSafeClient, Choice, Noul, Score
 
 
-    asyncio.run(main())
-    ```
-  </Tab>
+async def main() -> None:
+    async with AsyncTypeSafeClient() as client:
+        result = await client.system_one(
+            "I was charged twice. Please help ASAP.",
+            {
+                "billing": Noul(instructions="Is this about billing?"),
+                "tone": Choice(
+                    instructions="What is the tone?",
+                    criteria={"calm": None, "angry": None},
+                ),
+                "urgency": Score(
+                    instructions="How urgent is this?",
+                    criteria=["low", "medium", "high"],
+                ),
+            },
+        )
+        print(
+            result.nouls["billing"].noul,
+            result.choices["tone"].choice,
+            result.scores["urgency"].score,
+        )
 
-  <Tab title="Sync">
-    ```python theme={null}
-    from typesafe_sdk import Choice, Noul, Score, TypeSafeClient
 
-    client = TypeSafeClient()
-    state = "I was charged twice. Please help ASAP."
-    questions = {
-        "billing": Noul(instructions="Is this about billing?"),
-        "tone": Choice(
-            instructions="What is the tone?", criteria={"calm": None, "angry": None}
-        ),
-        "urgency": Score(
-            instructions="How urgent is this?", criteria=["low", "medium", "high"]
-        ),
-    }
-    result = client.system_one(state, questions)
-    print(
-        result.nouls["billing"].noul,
-        result.choices["tone"].choice,
-        result.scores["urgency"].score,
-    )
-    ```
-  </Tab>
-</Tabs>
+asyncio.run(main())
+```
+
+
+  
+**Sync:**
+
+```python
+from typesafe_sdk import Choice, Noul, Score, TypeSafeClient
+
+client = TypeSafeClient()
+state = "I was charged twice. Please help ASAP."
+questions = {
+    "billing": Noul(instructions="Is this about billing?"),
+    "tone": Choice(
+        instructions="What is the tone?", criteria={"calm": None, "angry": None}
+    ),
+    "urgency": Score(
+        instructions="How urgent is this?", criteria=["low", "medium", "high"]
+    ),
+}
+result = client.system_one(state, questions)
+print(
+    result.nouls["billing"].noul,
+    result.choices["tone"].choice,
+    result.scores["urgency"].score,
+)
+```
+
+
 
 <h2 id="typed-system_one-responses">
   Typed <code>system\_one</code> responses
@@ -84,7 +88,7 @@ local_path: sdk/python/usage.md
 
 It is possible to provide a response model to `system_one` to make using the response more *type-safe*:
 
-```python theme={null}
+```python
 from typesafe_sdk import Noul, NoulAnswer, SystemOneResponse, TypeSafeClient
 
 
@@ -109,7 +113,7 @@ with TypeSafeClient() as client:
 
 It is also possible to define a completely new response model without inheriting from `SystemOneResponse`:
 
-```python theme={null}
+```python
 from pydantic import BaseModel
 
 from typesafe_sdk import Noul, NoulAnswer, TypeSafeClient
@@ -137,7 +141,7 @@ assert 0 <= result.answers.billing.noul <= 1
 
 Inspect the available models:
 
-```python theme={null}
+```python
 from typesafe_sdk import TypeSafeClient
 
 print(TypeSafeClient().models.list())
@@ -145,45 +149,49 @@ print(TypeSafeClient().models.list())
 
 Select the model when constructing a client:
 
-```python theme={null}
+```python
 client = TypeSafeClient(model="jev")
 ```
 
-See the [Models resource reference](/sdk/python/api/clients/sync#models-resource) for details.
+See the [Models resource reference](./api/clients/sync.md#models-resource) for details.
 
 <h2 id="retries">
   Retries
 </h2>
 
-Pass a custom [`RetryPolicy`](/sdk/python/api/retries) as `retry` on the client or per call.
+Pass a custom [`RetryPolicy`](./api/retries.md) as `retry` on the client or per call.
 
-<Tabs>
-  <Tab title="Client">
-    ```python theme={null}
-    from typesafe_sdk import RetryPolicy, TypeSafeClient
 
-    client = TypeSafeClient(retry=RetryPolicy(max_retries=3, backoff_max=0.2, timeout=1.0))
-    ```
-  </Tab>
+  
+**Client:**
 
-  <Tab title="Per-call">
-    ```python theme={null}
-    from typesafe_sdk import RetryPolicy
+```python
+from typesafe_sdk import RetryPolicy, TypeSafeClient
 
-    client.system_one(
-        state, questions, retry=RetryPolicy(max_retries=3, backoff_max=0.2, timeout=1.0)
-    )
-    ```
-  </Tab>
-</Tabs>
+client = TypeSafeClient(retry=RetryPolicy(max_retries=3, backoff_max=0.2, timeout=1.0))
+```
+
+
+  
+**Per-call:**
+
+```python
+from typesafe_sdk import RetryPolicy
+
+client.system_one(
+    state, questions, retry=RetryPolicy(max_retries=3, backoff_max=0.2, timeout=1.0)
+)
+```
+
+
 
 <h2 id="error-handling">
   Error handling
 </h2>
 
-Handle [exceptions](/sdk/python/api/exceptions) raised by the SDK:
+Handle [exceptions](./api/exceptions.md) raised by the SDK:
 
-```python theme={null}
+```python
 from typesafe_sdk import TypeSafeAPIError
 
 try:
@@ -198,7 +206,7 @@ except TypeSafeAPIError as error:
 
 The SDK logs to the `typesafe_sdk` logger. Configure it according to [standard logging](https://docs.python.org/3/library/logging.html) guide:
 
-```python theme={null}
+```python
 import logging
 
 logging.getLogger("typesafe_sdk").setLevel(logging.DEBUG)
@@ -221,7 +229,7 @@ The SDK reads and uses the following environment variables:
 | `TYPESAFE_DEFAULT_MODEL` | Default model                                       | `jev-latest`              |
 | `TYPESAFE_LOG_LEVEL`     | `typesafe_sdk` logger level, applied once at import | unset                     |
 
-See the [constants reference](/sdk/python/api/constants) for SDK defaults.
+See the [constants reference](./api/constants.md) for SDK defaults.
 
 <h2 id="forward-compatibility">
   Forward compatibility
@@ -233,9 +241,9 @@ The SDK keeps working as the TypeSafe API evolves, so you can adopt new API feat
   Extra request fields
 </h3>
 
-Send request fields this SDK version predates with [`extra_body`](/sdk/python/api/clients/sync):
+Send request fields this SDK version predates with [`extra_body`](./api/clients/sync.md):
 
-```python theme={null}
+```python
 from typesafe_sdk import Noul, TypeSafeClient
 
 with TypeSafeClient() as client:
@@ -250,7 +258,7 @@ with TypeSafeClient() as client:
   Raw question dictionaries
 </h3>
 
-```python theme={null}
+```python
 from typesafe_sdk import TypeSafeClient
 
 with TypeSafeClient() as client:
@@ -260,11 +268,10 @@ with TypeSafeClient() as client:
     )
 ```
 
-<Tip>
-  **Tip**
-
-  Unknown fields are a forward-compatibility escape hatch. Ignore their type-checking errors and prefer upgrading the SDK instead.
-</Tip>
+> [!TIP]
+> **Tip**
+>
+> Unknown fields are a forward-compatibility escape hatch. Ignore their type-checking errors and prefer upgrading the SDK instead.
 
 <h3 id="unknown-answer-kinds">
   Unknown answer kinds
@@ -272,7 +279,7 @@ with TypeSafeClient() as client:
 
 The SDK logs a warning and skips unrecognized answer kinds. Use `raw_http_response` to inspect the complete API response, including those answers:
 
-```python theme={null}
+```python
 from typesafe_sdk import Noul, TypeSafeClient
 
 result = TypeSafeClient().system_one(

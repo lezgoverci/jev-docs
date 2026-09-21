@@ -10,6 +10,6 @@ local_path: sdk/javascript/api/variables/VERSION.md
 
 # Variable: VERSION
 
-```ts theme={null}
+```ts
 const VERSION: "0.6.0" = "0.6.0";
 ```

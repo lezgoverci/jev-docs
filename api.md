@@ -12,11 +12,11 @@ local_path: api.md
 
 > Full HTTP API reference for the TypeSafe evaluation endpoint.
 
-Evaluate a `state` against a map of typed `questions` and get back structured `answers`, one per question. For a guided introduction, start with the [primitives](/primitives).
+Evaluate a `state` against a map of typed `questions` and get back structured `answers`, one per question. For a guided introduction, start with the [primitives](./primitives.md).
 
 ## Evaluation endpoint
 
-```http theme={null}
+```http
 POST https://api.typesafe.ai/v1/systemone
 Authorization: Bearer <API_KEY>
 Content-Type: application/json
@@ -26,25 +26,21 @@ Content-Type: application/json
 
 The top-level shape of every request. Each entry in the `questions` map is a typed question you name.
 
-<ParamField body="state" type="string | object | array" required>
-  The content to evaluate. A plain string for text, or structured data (object/array) for things like chat logs, records, or the current state of your application. See [State](/concepts/state) for formats and best practices.
-</ParamField>
+- **`state`** `string | object | array` *(required)* — The content to evaluate. A plain string for text, or structured data (object/array) for things like chat logs, records, or the current state of your application. See [State](./concepts/state.md) for formats and best practices.
 
-<ParamField body="model" type="string" required>
-  The model that handles the request. Use `"jev-latest"`, TypeSafe's flagship model. See [Models](/models) for the available models and aliases.
-</ParamField>
+- **`model`** `string` *(required)* — The model that handles the request. Use `"jev-latest"`, TypeSafe's flagship model. See [Models](./models.md) for the available models and aliases.
 
-<ParamField body="questions" type="map<string, Question>" required>
-  A map of typed [Question](#question-types) objects. You choose each key; answers come back under the same keys.
+- **`questions`** `map<string, Question>` *(required)* — A map of typed [Question](#question-types) objects. You choose each key; answers come back under the same keys.
 
-  <Expandable title="map entries">
-    <ParamField body="‹question id›" type="Question">
-      A key you choose. The matching [Answer](#answer-types) is returned under this same id. The key is not sent to the underlying model and is not used in inference.
-    </ParamField>
-  </Expandable>
-</ParamField>
+  
+  <details>
+  <summary><strong>map entries</strong></summary>
 
-```json Example request theme={null}
+- **`‹question id›`** `Question` — A key you choose. The matching [Answer](#answer-types) is returned under this same id. The key is not sent to the underlying model and is not used in inference.
+  </details>
+
+**Example request:**
+```json
 {
   "state": "Help! My payouts have been failing for 3 days.",
   "model": "jev-latest",
@@ -63,7 +59,7 @@ A `Question` is one of three types, set by its `type` field. All three share `ty
 
 The `instructions` property can be a string, an object, or an array. You can break up a long question that has extra context, or data it needs to reference, into a structured object. Put the question in one field and the data in the others, and refer to the data fields by name in backticks, the same way you point a question at a nested `state` value:
 
-```json theme={null}
+```json
 "instructions": {
   "potential_duplicate": {
     "name": "John Smith",
@@ -74,33 +70,29 @@ The `instructions` property can be a string, an object, or an array. You can bre
 }
 ```
 
-See [Use structure in the questions](/concepts/how-to-build-with-system-one#use-structure-in-the-questions) to learn more.
+See [Use structure in the questions](./concepts/how-to-build-with-system-one.md#use-structure-in-the-questions) to learn more.
 
 ### Noul
 
 A yes/no question. Returns the probability the answer is yes.
 
-<ParamField body="type" type="&#x22;noul&#x22;" required />
+- **`type`** `"noul"` *(required)*
 
-<ParamField body="instructions" type="string | object | array" required>
-  The yes/no question to evaluate. An object can hold the question in one field and data it refers to in others; see [Use structure in the questions](/concepts/how-to-build-with-system-one#use-structure-in-the-questions).
-</ParamField>
+- **`instructions`** `string | object | array` *(required)* — The yes/no question to evaluate. An object can hold the question in one field and data it refers to in others; see [Use structure in the questions](./concepts/how-to-build-with-system-one.md#use-structure-in-the-questions).
 
-<ParamField body="criteria" type="object">
-  Optional descriptions of what a yes and a no mean.
+- **`criteria`** `object` — Optional descriptions of what a yes and a no mean.
 
-  <Expandable title="properties">
-    <ParamField body="true" type="string | object | array">
-      What a yes (value near 1) means.
-    </ParamField>
+  
+  <details>
+  <summary><strong>properties</strong></summary>
 
-    <ParamField body="false" type="string | object | array">
-      What a no (value near 0) means.
-    </ParamField>
-  </Expandable>
-</ParamField>
+- **`true`** `string | object | array` — What a yes (value near 1) means.
 
-```json Example request focus={5-12} theme={null}
+    - **`false`** `string | object | array` — What a no (value near 0) means.
+  </details>
+
+**Example request:**
+```json
 {
   "state": "Help! My payouts have been failing for 3 days.",
   "model": "jev-latest",
@@ -121,23 +113,21 @@ A yes/no question. Returns the probability the answer is yes.
 
 Picks one option from a set you define. Returns the chosen option and the full probability distribution.
 
-<ParamField body="type" type="&#x22;choice&#x22;" required />
+- **`type`** `"choice"` *(required)*
 
-<ParamField body="instructions" type="string | object | array" required>
-  What the model should decide. An object can hold the question in one field and data it refers to in others; see [Structured instructions and criteria](/primitives/choice#structured-instructions-and-criteria).
-</ParamField>
+- **`instructions`** `string | object | array` *(required)* — What the model should decide. An object can hold the question in one field and data it refers to in others; see [Structured instructions and criteria](./primitives/choice.md#structured-instructions-and-criteria).
 
-<ParamField body="criteria" type="map<string, string | object | array | null>" required>
-  A map of option to rubric description; use null when an option needs no extra detail. You can have a maximum of 255 options per Choice.
+- **`criteria`** `map<string, string | object | array | null>` *(required)* — A map of option to rubric description; use null when an option needs no extra detail. You can have a maximum of 255 options per Choice.
 
-  <Expandable title="map entries">
-    <ParamField body="‹option›" type="string | object | array | null">
-      A key you choose. A description of this option.
-    </ParamField>
-  </Expandable>
-</ParamField>
+  
+  <details>
+  <summary><strong>map entries</strong></summary>
 
-```json Example request focus={5-13} theme={null}
+- **`‹option›`** `string | object | array | null` — A key you choose. A description of this option.
+  </details>
+
+**Example request:**
+```json
 {
   "state": "Help! My payouts have been failing for 3 days.",
   "model": "jev-latest",
@@ -159,17 +149,14 @@ Picks one option from a set you define. Returns the chosen option and the full p
 
 Rates the state along a rubric you define. Returns a probability-weighted value across your levels.
 
-<ParamField body="type" type="&#x22;score&#x22;" required />
+- **`type`** `"score"` *(required)*
 
-<ParamField body="instructions" type="string | object | array" required>
-  What the model should rate. An object can hold the question in one field and data it refers to in others; see [Use structure in the questions](/concepts/how-to-build-with-system-one#use-structure-in-the-questions).
-</ParamField>
+- **`instructions`** `string | object | array` *(required)* — What the model should rate. An object can hold the question in one field and data it refers to in others; see [Use structure in the questions](./concepts/how-to-build-with-system-one.md#use-structure-in-the-questions).
 
-<ParamField body="criteria" type="array<string | object | array>" required>
-  An ordered array of level descriptions. A Score should have at least two levels; the API accepts up to 10.
-</ParamField>
+- **`criteria`** `array<string | object | array>` *(required)* — An ordered array of level descriptions. A Score should have at least two levels; the API accepts up to 10.
 
-```json Example request focus={5-9} theme={null}
+**Example request:**
+```json
 {
   "state": "Help! My payouts have been failing for 3 days.",
   "model": "jev-latest",
@@ -187,31 +174,30 @@ Rates the state along a rubric you define. Returns a probability-weighted value 
 
 One answer per question, returned under the same ids you provided.
 
-<ResponseField name="model" type="string" required>
-  The model that performed the evaluation.
-</ResponseField>
+- **`model`** `string` *(required)* — The model that performed the evaluation.
 
-<ResponseField name="answers" type="map<string, Answer>" required>
-  One [Answer](#answer-types) per question, keyed by the same ids you used in questions.
+- **`answers`** `map<string, Answer>` *(required)* — One [Answer](#answer-types) per question, keyed by the same ids you used in questions.
 
-  <Expandable title="map entries">
-    <ResponseField name="‹question id›" type="Answer">
-      The same id you chose in questions.
-    </ResponseField>
-  </Expandable>
-</ResponseField>
+  
+  <details>
+  <summary><strong>map entries</strong></summary>
 
-<ResponseField name="usage" type="object" required>
-  Token usage for the request.
+- **`‹question id›`** `Answer` — The same id you chose in questions.
+  </details>
 
-  <Expandable title="properties">
-    <ResponseField name="input_tokens" type="integer" />
+- **`usage`** `object` *(required)* — Token usage for the request.
 
-    <ResponseField name="output_tokens" type="integer" />
-  </Expandable>
-</ResponseField>
+  
+  <details>
+  <summary><strong>properties</strong></summary>
 
-```json Example response theme={null}
+- **`input_tokens`** `integer`
+
+    - **`output_tokens`** `integer`
+  </details>
+
+**Example response:**
+```json
 {
   "model": "jev-1.13.0",
   "answers": {
@@ -226,17 +212,16 @@ One answer per question, returned under the same ids you provided.
 
 ## Answer types
 
-Every answer carries a `type` matching its question. Choice and Score answers also carry a `confidence` between 0 to 1, derived from the answer's probability distribution. See [Confidence](/confidence).
+Every answer carries a `type` matching its question. Choice and Score answers also carry a `confidence` between 0 to 1, derived from the answer's probability distribution. See [Confidence](./confidence.md).
 
 ### Noul answer
 
-<ResponseField name="type" type="&#x22;noul&#x22;" required />
+- **`type`** `"noul"` *(required)*
 
-<ResponseField name="noul" type="number" required>
-  The yes/no answer on a scale from 0 (no) to 1 (yes).
-</ResponseField>
+- **`noul`** `number` *(required)* — The yes/no answer on a scale from 0 (no) to 1 (yes).
 
-```json Example response focus={4-7} theme={null}
+**Example response:**
+```json
 {
   "model": "jev-1.13.0",
   "answers": {
@@ -251,27 +236,23 @@ Every answer carries a `type` matching its question. Choice and Score answers al
 
 ### Choice answer
 
-<ResponseField name="type" type="&#x22;choice&#x22;" required />
+- **`type`** `"choice"` *(required)*
 
-<ResponseField name="choice" type="string" required>
-  The highest-probability option.
-</ResponseField>
+- **`choice`** `string` *(required)* — The highest-probability option.
 
-<ResponseField name="probabilities" type="map<string, number>" required>
-  Every option mapped to its probability (floats that sum to 1).
+- **`probabilities`** `map<string, number>` *(required)* — Every option mapped to its probability (floats that sum to 1).
 
-  <Expandable title="map entries">
-    <ResponseField name="‹option›" type="number">
-      An option you defined in criteria.
-    </ResponseField>
-  </Expandable>
-</ResponseField>
+  
+  <details>
+  <summary><strong>map entries</strong></summary>
 
-<ResponseField name="confidence" type="number" required>
-  How certain the model is, derived from probabilities.
-</ResponseField>
+- **`‹option›`** `number` — An option you defined in criteria.
+  </details>
 
-```json Example response focus={4-9} theme={null}
+- **`confidence`** `number` *(required)* — How certain the model is, derived from probabilities.
+
+**Example response:**
+```json
 {
   "model": "jev-1.13.0",
   "answers": {
@@ -288,31 +269,25 @@ Every answer carries a `type` matching its question. Choice and Score answers al
 
 ### Score answer
 
-<ResponseField name="type" type="&#x22;score&#x22;" required />
+- **`type`** `"score"` *(required)*
 
-<ResponseField name="score" type="number" required>
-  The probability-weighted answer across the levels; can land between levels.
-</ResponseField>
+- **`score`** `number` *(required)* — The probability-weighted answer across the levels; can land between levels.
 
-<ResponseField name="legend" type="map<string, string>" required>
-  Each level number mapped back to its description.
-</ResponseField>
+- **`legend`** `map<string, string>` *(required)* — Each level number mapped back to its description.
 
-<ResponseField name="probabilities" type="map<string, number>" required>
-  Each level (string key) mapped to its probability (floats that sum to 1).
+- **`probabilities`** `map<string, number>` *(required)* — Each level (string key) mapped to its probability (floats that sum to 1).
 
-  <Expandable title="map entries">
-    <ResponseField name="‹level›" type="number">
-      A level index, as a string key matching legend.
-    </ResponseField>
-  </Expandable>
-</ResponseField>
+  
+  <details>
+  <summary><strong>map entries</strong></summary>
 
-<ResponseField name="confidence" type="number" required>
-  How certain the model is, derived from probabilities.
-</ResponseField>
+- **`‹level›`** `number` — A level index, as a string key matching legend.
+  </details>
 
-```json Example response focus={4-10} theme={null}
+- **`confidence`** `number` *(required)* — How certain the model is, derived from probabilities.
+
+**Example response:**
+```json
 {
   "model": "jev-1.13.0",
   "answers": {

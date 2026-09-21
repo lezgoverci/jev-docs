@@ -8,7 +8,7 @@ local_path: sdk/javascript/api/classes/APIPromise.md
 > Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Class: APIPromise<T>
+# Class: APIPromise\<T\>
 
 A promise for the parsed result with access to the HTTP response.
 
@@ -26,11 +26,11 @@ Non-2xx responses reject with an `APIError`, including through `asResponse()`.
 
 ## Constructors
 
-<a id="sdk-constructor" />
+<a id="sdk-constructor"></a>
 
 ### Constructor
 
-```ts theme={null}
+```ts
 new APIPromise<T>(responsePromise, parseResponse): APIPromise<T>;
 ```
 
@@ -50,17 +50,17 @@ new APIPromise<T>(responsePromise, parseResponse): APIPromise<T>;
 
 #### Overrides
 
-```ts theme={null}
+```ts
 Promise<T>.constructor
 ```
 
 ## Methods
 
-<a id="sdk-asresponse" />
+<a id="sdk-asresponse"></a>
 
 ### asResponse()
 
-```ts theme={null}
+```ts
 asResponse(): Promise<Response>;
 ```
 
@@ -74,11 +74,11 @@ The caller owns the body; don't also `await` the parsed result on the same promi
 
 ***
 
-<a id="sdk-catch" />
+<a id="sdk-catch"></a>
 
 ### catch()
 
-```ts theme={null}
+```ts
 catch<TResult>(onrejected?): Promise<T | TResult>;
 ```
 
@@ -106,17 +106,17 @@ A Promise for the completion of the callback.
 
 #### Overrides
 
-```ts theme={null}
+```ts
 Promise.catch
 ```
 
 ***
 
-<a id="sdk-finally" />
+<a id="sdk-finally"></a>
 
 ### finally()
 
-```ts theme={null}
+```ts
 finally(onfinally?): Promise<T>;
 ```
 
@@ -139,17 +139,17 @@ A Promise for the completion of the callback.
 
 #### Overrides
 
-```ts theme={null}
+```ts
 Promise.finally
 ```
 
 ***
 
-<a id="sdk-map" />
+<a id="sdk-map"></a>
 
 ### map()
 
-```ts theme={null}
+```ts
 map<U>(fn): APIPromise<U>;
 ```
 
@@ -173,11 +173,11 @@ Transform the parsed result, sharing the HTTP response and a single body parse.
 
 ***
 
-<a id="sdk-then" />
+<a id="sdk-then"></a>
 
 ### then()
 
-```ts theme={null}
+```ts
 then<TResult1, TResult2>(onfulfilled?, onrejected?): Promise<TResult1 | TResult2>;
 ```
 
@@ -215,17 +215,17 @@ A Promise for the completion of which ever callback is executed.
 
 #### Overrides
 
-```ts theme={null}
+```ts
 Promise.then
 ```
 
 ***
 
-<a id="sdk-withresponse" />
+<a id="sdk-withresponse"></a>
 
 ### withResponse()
 
-```ts theme={null}
+```ts
 withResponse(): Promise<WithResponse<T>>;
 ```
 
@@ -233,4 +233,4 @@ Return the parsed result, HTTP response, and request ID.
 
 #### Returns
 
-`Promise`\<[`WithResponse`](/sdk/javascript/api/interfaces/WithResponse)\<`T`>>
+`Promise`\<[`WithResponse`](../interfaces/WithResponse.md)\<`T`>>

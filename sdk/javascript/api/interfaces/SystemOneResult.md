@@ -8,7 +8,7 @@ local_path: sdk/javascript/api/interfaces/SystemOneResult.md
 > Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Interface: SystemOneResult<Q>
+# Interface: SystemOneResult\<Q\>
 
 Answers keyed by question name, with model and usage metadata.
 
@@ -16,15 +16,15 @@ Answers keyed by question name, with model and usage metadata.
 
 ### Q
 
-`Q` *extends* [`Questions`](/sdk/javascript/api/interfaces/Questions)
+`Q` *extends* [`Questions`](./Questions.md)
 
 ## Properties
 
-<a id="sdk-answers" />
+<a id="sdk-answers"></a>
 
 ### answers
 
-```ts theme={null}
+```ts
 readonly answers: { readonly [K in string | number | symbol]: ResultFor<Q[K]> };
 ```
 
@@ -32,11 +32,11 @@ Answers with types inferred from the supplied questions.
 
 ***
 
-<a id="sdk-model" />
+<a id="sdk-model"></a>
 
 ### model
 
-```ts theme={null}
+```ts
 readonly model: string;
 ```
 
@@ -44,11 +44,11 @@ The model used to answer the request.
 
 ***
 
-<a id="sdk-usage" />
+<a id="sdk-usage"></a>
 
 ### usage
 
-```ts theme={null}
+```ts
 readonly usage: Usage;
 ```
 

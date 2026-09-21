@@ -8,7 +8,7 @@ local_path: sdk/javascript/api/interfaces/ChoiceQuestion.md
 > Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Interface: ChoiceQuestion<T>
+# Interface: ChoiceQuestion\<T\>
 
 A question that selects between named alternatives.
 
@@ -16,15 +16,15 @@ A question that selects between named alternatives.
 
 ### T
 
-`T` *extends* [`ChoiceCriteria`](/sdk/javascript/api/type-aliases/ChoiceCriteria) = [`ChoiceCriteria`](/sdk/javascript/api/type-aliases/ChoiceCriteria)
+`T` *extends* [`ChoiceCriteria`](../type-aliases/ChoiceCriteria.md) = [`ChoiceCriteria`](../type-aliases/ChoiceCriteria.md)
 
 ## Properties
 
-<a id="sdk-criteria" />
+<a id="sdk-criteria"></a>
 
 ### criteria
 
-```ts theme={null}
+```ts
 criteria: T;
 ```
 
@@ -32,11 +32,11 @@ Descriptions of the available outcomes.
 
 ***
 
-<a id="sdk-instructions" />
+<a id="sdk-instructions"></a>
 
 ### instructions?
 
-```ts theme={null}
+```ts
 optional instructions?: EntryType;
 ```
 
@@ -44,10 +44,10 @@ The question as text, a JSON object, or an array; optional or `null`.
 
 ***
 
-<a id="sdk-type" />
+<a id="sdk-type"></a>
 
 ### type
 
-```ts theme={null}
+```ts
 type: "choice";
 ```

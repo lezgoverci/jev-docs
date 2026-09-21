@@ -17,7 +17,7 @@ sentence down. They mark four options on a cup. This cookbook does the same thin
 a trading API: a sentence goes in, and out comes a function name and its arguments as
 evaluated enums, each with a confidence.
 
-```text theme={null}
+```text
 "plot rolling correlation between nvda and spy for the past month"
     rolling_correlation(symbol='NVDA', benchmark='SPY', window='1mo')   confidence 0.91
 
@@ -34,7 +34,7 @@ evaluated enums, each with a confidence.
 Those calls go to ten ordinary functions in a trading assistant. Their arguments take
 values from fixed lists, so they are `Literal`s already:
 
-```python theme={null}
+```python
 def plot_price(
     symbol: Literal["SPY", "NVDA", "AMD", "AAPL", "MSFT", "TSLA"],
     style: Literal["line", "candles"] = "line",
@@ -54,7 +54,7 @@ you add is a spec that says in plain words what each argument means. By the end 
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython polars matplotlib numpy "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -63,7 +63,7 @@ functions, plus a TypeSafe client that reads answers from a cache, so re-renderi
 the numbers below without calling the API. `dispatch.py` holds the code that reads a
 signature and a spec and makes the call.
 
-```python theme={null}
+```python
 import json
 from pathlib import Path
 
@@ -88,7 +88,7 @@ list. `closed_sets` reads a signature and sorts those arguments into three shape
 so any number of them), or a **flag** (a `bool`, so on or off). All ten functions are
 defined in `trader.py`.
 
-```python theme={null}
+```python
 for name, fn in TOOLS.items():
     shapes = closed_sets(fn)
     print(
@@ -126,7 +126,7 @@ The `Literal` gives you the strings `"1mo"` and `"3mo"`. It does not say that a 
 a line per option, a description per function, and one more question that picks between the
 functions. It lives in `spec.json`, and an LLM can write it for you from the signatures.
 
-```python theme={null}
+```python
 SPEC = json.loads(Path("spec.json").read_text())
 for argument in ("style", "moving_average"):
     print(
@@ -180,7 +180,7 @@ against.
 carrying the choice of function and every function's arguments, and the dispatcher reads
 only the chosen function's answers.
 
-```python theme={null}
+```python
 assistant = Dispatcher(SPEC, TOOLS, client)
 print(f"{len(assistant.questions)} questions per command, among them:")
 for qid in (
@@ -206,7 +206,7 @@ for qid in (
 A request occupies one line, and its `confidence` is the least certain judgement behind
 that call.
 
-```python theme={null}
+```python
 COMMANDS = [
     "show nvda 1h",
     "plot rolling correlation between nvda and spy for the past month",
@@ -273,7 +273,7 @@ months" put three tickers in the set and left the other three out.
 
 Running three of them:
 
-```python theme={null}
+```python
 for command in (
     "plot rolling correlation between nvda and spy for the past month",
     "compare nvda amd and msft over the past three months",
@@ -297,7 +297,7 @@ for command in (
 
 And the ones that answer in text:
 
-```python theme={null}
+```python
 for command in ("how did the market do this week", "biggest losers today"):
     print(f'"{command}"  ->  {CALLS[command]}')
     print(CALLS[command].run(), "\n")
@@ -329,7 +329,7 @@ arguments, whether or not any one judgement is shaky.
 
 Where that number came from, argument by argument:
 
-```python theme={null}
+```python
 call = CALLS["is amd tracking nvidia lately"]
 print(f'"is amd tracking nvidia lately"  ->  {call}   confidence {call.confidence:.2f}')
 for name, argument in call.arguments.items():
@@ -362,7 +362,7 @@ The link below holds one command and the questions for the function it picked: t
 over the ten function descriptions, and `rolling_correlation`'s four arguments. Edit the
 command there and the arguments change with it.
 
-```python theme={null}
+```python
 COMMAND = "plot rolling correlation between nvda and spy for the past month"
 picked = CALLS[COMMAND]
 playground_link = make_playground_link(

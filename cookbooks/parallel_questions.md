@@ -34,13 +34,13 @@ questions, and 3 `Score` questions.
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
 then set `TYPESAFE_API_KEY`.
 
-```python theme={null}
+```python
 import json
 import os
 import urllib.request
@@ -68,7 +68,7 @@ Fetched as plain text from a pinned revision of the article and cached in `json_
 next to the API calls, so the document and its numbers stay fixed even as the live
 article gets edited.
 
-```python theme={null}
+```python
 WIKIPEDIA_REVISION = 1363040264  # "General Data Protection Regulation", as of 2026-07
 
 
@@ -110,7 +110,7 @@ One number tracked per answer, by type:
 * `Score`: the score normalized to 0-1, the score divided by the top level.
   `criteria` lists the level descriptions, from level 0 up.
 
-```python expandable theme={null}
+```python
 QUESTIONS = {
     "breach_72h": Noul(
         instructions="Must a personal data breach be reported to the supervisory authority within 72 hours?"
@@ -199,7 +199,7 @@ enough to compare the mean (do the two agree?) and the std dev (does batching ad
 Calls are cached to `json_cache.json`, which ships with the cookbook, so re-rendering is
 free; delete it to re-run live.
 
-```python expandable theme={null}
+```python
 @json_cache
 def ask(keys: tuple[str, ...], run: int):
     """One TypeSafe call -> ({key: tracked metric}, input_tokens, output_tokens, latency_s);
@@ -248,7 +248,7 @@ Per question: the mean and std dev of its tracked number over the 5 runs, under 
 batching strategy. If batching changed the answers, the batched columns would differ from
 the single columns. A shifted mean is bias. A larger std dev is noise.
 
-```python theme={null}
+```python
 print(
     f"{'question':<22}{'metric':<18}{'batched mean':>13}{'single mean':>12}"
     f"{'batched std':>13}{'single std':>12}"
@@ -306,7 +306,7 @@ Same answers, different bill. The \~54,000-character article dominates every req
 Token counts and latencies are cached alongside the answers; cost is applied after, and
 both are averaged over the 5 runs.
 
-```python theme={null}
+```python
 batched_cost = mean(cost for _values, cost, _latency in batched)
 batched_latency = mean(latency for _values, _cost, latency in batched)
 singles_cost = mean(
@@ -340,7 +340,7 @@ batching: 12.2x cheaper, 10.0x faster
 The same article and the same 13 questions, packed into a share link. Open it to re-run
 the briefing live; the same numbers come back.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(
     {"article": DOCUMENT}, QUESTIONS, models=[TYPESAFE_MODEL]
 )

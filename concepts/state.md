@@ -14,13 +14,13 @@ local_path: concepts/state.md
 
 **State** is the content you ask a System One model to evaluate. It could be a support message, a passage of text, or the current state of your application. You pass it in the `state` field of an API request, alongside the questions you want answered.
 
-Each request evaluates one state against one or more questions. All questions see the same state and are evaluated independently. You can mix [Choice](/primitives/choice), [Score](/primitives/score), and [Noul](/primitives/noul) questions in one request.
+Each request evaluates one state against one or more questions. All questions see the same state and are evaluated independently. You can mix [Choice](../primitives/choice.md), [Score](../primitives/score.md), and [Noul](../primitives/noul.md) questions in one request.
 
 ## State can be a simple string or a structured JSON value
 
 The simplest state is a plain string:
 
-```python theme={null}
+```python
 state = "My card was charged twice."
 ```
 
@@ -34,11 +34,11 @@ State can also be a JSON object or array containing related context, examples, a
 
 Use an object for most requests so each part of the state has a descriptive name and its relationships remain clear. A string is suitable when the use case is simple and requires only one piece of text.
 
-<Note>
-  Jev accepts text only. State must be a string, JSON object, or array of text values. Images, audio, and video are not supported (yet). Jev's primary training language is English; other languages, including CJK scripts, are accepted but currently have lower accuracy — see [Models](/models#language-support).
-</Note>
+> [!NOTE]
+> Jev accepts text only. State must be a string, JSON object, or array of text values. Images, audio, and video are not supported (yet). Jev's primary training language is English; other languages, including CJK scripts, are accepted but currently have lower accuracy — see [Models](../models.md#language-support).
 
-```json title="A support conversation as state" theme={null}
+**A support conversation as state:**
+```json
 {
   "ticket": {
     "subject": "Duplicate charge",
@@ -62,8 +62,8 @@ This object is one state, even though it contains a conversation, an order, and 
 
 ## Separate content from questions
 
-The state contains the content and supporting facts. [Questions](/primitives) define the judgments the model should make about that material. For example, keep the refund request and policy in the state, then ask whether the customer requested a refund and whether the policy supports it.
+The state contains the content and supporting facts. [Questions](../primitives.md) define the judgments the model should make about that material. For example, keep the refund request and policy in the state, then ask whether the customer requested a refund and whether the policy supports it.
 
-See [Primitives (Questions)](/primitives) for guidance on instructions, criteria, question types, and asking several questions about one state.
+See [Primitives (Questions)](../primitives.md) for guidance on instructions, criteria, question types, and asking several questions about one state.
 
-See the [API reference](/api) for the request schema and [client SDKs](/sdk) for installation, typed inputs, and response handling.
+See the [API reference](../api.md) for the request schema and [client SDKs](../sdk.md) for installation, typed inputs, and response handling.

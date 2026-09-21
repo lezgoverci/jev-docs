@@ -14,19 +14,19 @@ The request or response-body delivery failed (DNS, TLS, connection closed, etc.)
 
 ## Extends
 
-* [`TypeSafeError`](/sdk/javascript/api/classes/TypeSafeError)
+* [`TypeSafeError`](./TypeSafeError.md)
 
 ## Extended by
 
-* [`APITimeoutError`](/sdk/javascript/api/classes/APITimeoutError)
+* [`APITimeoutError`](./APITimeoutError.md)
 
 ## Constructors
 
-<a id="sdk-constructor" />
+<a id="sdk-constructor"></a>
 
 ### Constructor
 
-```ts theme={null}
+```ts
 new APIConnectionError(message?, options?): APIConnectionError;
 ```
 
@@ -46,4 +46,4 @@ new APIConnectionError(message?, options?): APIConnectionError;
 
 #### Overrides
 
-[`TypeSafeError`](/sdk/javascript/api/classes/TypeSafeError).[`constructor`](/sdk/javascript/api/classes/TypeSafeError#sdk-constructor)
+[`TypeSafeError`](./TypeSafeError.md).[`constructor`](./TypeSafeError.md#sdk-constructor)

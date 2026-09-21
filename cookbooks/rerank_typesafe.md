@@ -109,13 +109,13 @@ that only needs one number.
 
 With TypeSafe, the scoring request can remain a yes/no question:
 
-```text theme={null}
+```text
 Could this candidate passage be from the cited precedent?
 ```
 
 A plain yes or no would not be enough to rank 30 candidates. A `Noul` instead
 returns a number between 0 and 1, called a
-[noul](/primitives/noul). The noul is TypeSafe's estimate
+[noul](../primitives/noul.md). The noul is TypeSafe's estimate
 of how likely the answer is to be yes.
 
 The question's criteria define what counts as true and false. TypeSafe applies them to
@@ -125,7 +125,7 @@ TypeSafe is built to do this repeated scoring faster, cheaper, and more consiste
 
 In simplified pseudocode, one TypeSafe scoring call looks like this:
 
-```python theme={null}
+```python
 question = Noul(
     instructions="Is this candidate the cited case?",
     criteria=NoulCriteria(
@@ -144,7 +144,7 @@ You can use this to re-rank a shortlist by running the same question against eve
 candidate on it, then sorting the shortlist by the noul each call comes back with, highest
 first.
 
-```python theme={null}
+```python
 nouls = {candidate: ask_typesafe(query, candidate) for candidate in shortlist}
 reranked = sorted(shortlist, key=lambda c: nouls[c], reverse=True)  # highest noul first
 ```
@@ -152,7 +152,7 @@ reranked = sorted(shortlist, key=lambda c: nouls[c], reverse=True)  # highest no
 The diagram below shows how one request per candidate produces the scores used to reorder
 the shortlist.
 
-```mermaid actions={true} theme={null}
+```mermaid
 flowchart LR
     q["query excerpt<br/><i>one opinion passage,<br/>citation removed</i>"]
     sl["shortlist from fast search<br/><i>30 candidate passages</i>"]
@@ -196,7 +196,7 @@ The first step installs the packages this walkthrough depends on.
 * `typesafe-sdk` and `cooksafe` handle re-ranking and API caching.
 * `matplotlib` draws the result charts.
 
-```bash theme={null}
+```bash
 pip install bm25s datasets matplotlib "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -204,7 +204,7 @@ The next block sets up the TypeSafe client and the constants the rest of the wal
 uses, such as which TypeSafe model to call and how large a shortlist fast search hands to
 the re-ranker. Calling TypeSafe needs a `TYPESAFE_API_KEY`.
 
-```python theme={null}
+```python
 import hashlib
 import json
 import os
@@ -257,7 +257,7 @@ The next cell builds the shortlist, using the technique described above:
 
 There's no TypeSafe here yet, this is only the fast search step.
 
-```python expandable theme={null}
+```python
 CLERC_FILE = (
     "https://huggingface.co/datasets/jhu-clsp/CLERC/resolve/main/"
     "teva_train_dir/train_data.jsonl.gz"
@@ -402,7 +402,7 @@ The next cell does the following:
    calls in total, run concurrently instead of one after another.
 3. Sort each shortlist by the score TypeSafe returns, producing the re-ranked result.
 
-```python expandable theme={null}
+```python
 is_cited_source = Noul(
     instructions=(
         "The query excerpt comes from a US federal court opinion and was written "
@@ -558,8 +558,8 @@ re-ranks those 30 passages.
 
 This walkthrough asked one question per pair for clarity. A real application would
 ask several questions about the same pair in one call. See the [parallel questions
-cookbook](/cookbooks/parallel_questions) and the
-[Speculative Fan-Out pattern](/patterns/fan-out) for how.
+cookbook](./parallel_questions.md) and the
+[Speculative Fan-Out pattern](../patterns/fan-out.md) for how.
 
 ***
 
@@ -567,9 +567,9 @@ cookbook](/cookbooks/parallel_questions) and the
 
 The same building blocks show up elsewhere in TypeSafe's docs:
 
-* [Noul](/primitives/noul), for how TypeSafe turns a yes/no
+* [Noul](../primitives/noul.md), for how TypeSafe turns a yes/no
   question into a score.
-* [Speculative Fan-Out](/patterns/fan-out), for asking
+* [Speculative Fan-Out](../patterns/fan-out.md), for asking
   several questions about one document in a single call.
-* [Line-by-line Search](/cookbooks/semantic_find),
+* [Line-by-line Search](./semantic_find.md),
   for another way to search a corpus by meaning rather than keywords.

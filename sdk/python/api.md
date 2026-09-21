@@ -12,11 +12,11 @@ local_path: sdk/python/api.md
 
 > Python clients for the TypeSafe AI API
 
-<a id="api-reference" />
+<a id="api-reference"></a>
 
-* [Sync client](/sdk/python/api/clients/sync)
-* [Async client](/sdk/python/api/clients/async)
-* Types: [Common](/sdk/python/api/types/common) · [Questions](/sdk/python/api/types/questions) · [Responses](/sdk/python/api/types/responses)
-* [Retries](/sdk/python/api/retries)
-* [Exceptions](/sdk/python/api/exceptions)
-* [Constants](/sdk/python/api/constants)
+* [Sync client](./api/clients/sync.md)
+* [Async client](./api/clients/async.md)
+* Types: [Common](./api/types/common.md) · [Questions](./api/types/questions.md) · [Responses](./api/types/responses.md)
+* [Retries](./api/retries.md)
+* [Exceptions](./api/exceptions.md)
+* [Constants](./api/constants.md)

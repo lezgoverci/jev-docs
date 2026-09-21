@@ -16,13 +16,13 @@ JavaScript and TypeScript SDK for [TypeSafe AI](https://typesafe.ai).
 
 Install the SDK (Node.js 20 or newer):
 
-```sh theme={null}
+```sh
 npm install @typesafe-ai/sdk
 ```
 
 Set `TYPESAFE_API_KEY` in your environment, then create and use the client:
 
-```ts theme={null}
+```ts
 import { choice, TypeSafeClient } from "@typesafe-ai/sdk";
 
 const client = new TypeSafeClient();

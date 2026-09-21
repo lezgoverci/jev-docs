@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/type-aliases/EntryType.md
 
 # Type Alias: EntryType
 
-```ts theme={null}
+```ts
 type EntryType = 
   | string
   | {

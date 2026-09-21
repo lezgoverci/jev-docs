@@ -14,11 +14,11 @@ Log methods accepting a message and structured values; compatible with `console`
 
 ## Methods
 
-<a id="sdk-debug" />
+<a id="sdk-debug"></a>
 
 ### debug()
 
-```ts theme={null}
+```ts
 debug(message, ...args): void;
 ```
 
@@ -38,11 +38,11 @@ debug(message, ...args): void;
 
 ***
 
-<a id="sdk-error" />
+<a id="sdk-error"></a>
 
 ### error()
 
-```ts theme={null}
+```ts
 error(message, ...args): void;
 ```
 
@@ -62,11 +62,11 @@ error(message, ...args): void;
 
 ***
 
-<a id="sdk-info" />
+<a id="sdk-info"></a>
 
 ### info()
 
-```ts theme={null}
+```ts
 info(message, ...args): void;
 ```
 
@@ -86,11 +86,11 @@ info(message, ...args): void;
 
 ***
 
-<a id="sdk-warn" />
+<a id="sdk-warn"></a>
 
 ### warn()
 
-```ts theme={null}
+```ts
 warn(message, ...args): void;
 ```
 

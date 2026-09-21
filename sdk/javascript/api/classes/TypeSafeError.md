@@ -18,17 +18,17 @@ Base class for SDK errors.
 
 ## Extended by
 
-* [`APIConnectionError`](/sdk/javascript/api/classes/APIConnectionError)
-* [`APIError`](/sdk/javascript/api/classes/APIError)
-* [`APIUserAbortError`](/sdk/javascript/api/classes/APIUserAbortError)
+* [`APIConnectionError`](./APIConnectionError.md)
+* [`APIError`](./APIError.md)
+* [`APIUserAbortError`](./APIUserAbortError.md)
 
 ## Constructors
 
-<a id="sdk-constructor" />
+<a id="sdk-constructor"></a>
 
 ### Constructor
 
-```ts theme={null}
+```ts
 new TypeSafeError(message, options?): TypeSafeError;
 ```
 
@@ -48,6 +48,6 @@ new TypeSafeError(message, options?): TypeSafeError;
 
 #### Overrides
 
-```ts theme={null}
+```ts
 Error.constructor
 ```

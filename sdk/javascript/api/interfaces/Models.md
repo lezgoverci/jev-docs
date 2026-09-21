@@ -14,11 +14,11 @@ Access to the Models API resource.
 
 ## Methods
 
-<a id="sdk-list" />
+<a id="sdk-list"></a>
 
 ### list()
 
-```ts theme={null}
+```ts
 list(options?): APIPromise<ModelCard[]>;
 ```
 
@@ -28,8 +28,8 @@ List the models available to the account.
 
 ##### options?
 
-[`RequestOptions`](/sdk/javascript/api/interfaces/RequestOptions) = `{}`
+[`RequestOptions`](./RequestOptions.md) = `{}`
 
 #### Returns
 
-[`APIPromise`](/sdk/javascript/api/classes/APIPromise)\<[`ModelCard`](/sdk/javascript/api/interfaces/ModelCard)\[]>
+[`APIPromise`](../classes/APIPromise.md)\<[`ModelCard`](./ModelCard.md)\[]>

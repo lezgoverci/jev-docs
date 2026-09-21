@@ -10,6 +10,6 @@ local_path: sdk/javascript/api/type-aliases/EnvVar.md
 
 # Type Alias: EnvVar
 
-```ts theme={null}
+```ts
 type EnvVar = typeof ENV[keyof typeof ENV];
 ```

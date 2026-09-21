@@ -14,25 +14,25 @@ An unsuccessful HTTP response from the API.
 
 ## Extends
 
-* [`TypeSafeError`](/sdk/javascript/api/classes/TypeSafeError)
+* [`TypeSafeError`](./TypeSafeError.md)
 
 ## Extended by
 
-* [`AuthenticationError`](/sdk/javascript/api/classes/AuthenticationError)
-* [`BadRequestError`](/sdk/javascript/api/classes/BadRequestError)
-* [`InternalServerError`](/sdk/javascript/api/classes/InternalServerError)
-* [`NotFoundError`](/sdk/javascript/api/classes/NotFoundError)
-* [`PermissionDeniedError`](/sdk/javascript/api/classes/PermissionDeniedError)
-* [`RateLimitError`](/sdk/javascript/api/classes/RateLimitError)
-* [`UnprocessableEntityError`](/sdk/javascript/api/classes/UnprocessableEntityError)
+* [`AuthenticationError`](./AuthenticationError.md)
+* [`BadRequestError`](./BadRequestError.md)
+* [`InternalServerError`](./InternalServerError.md)
+* [`NotFoundError`](./NotFoundError.md)
+* [`PermissionDeniedError`](./PermissionDeniedError.md)
+* [`RateLimitError`](./RateLimitError.md)
+* [`UnprocessableEntityError`](./UnprocessableEntityError.md)
 
 ## Constructors
 
-<a id="sdk-constructor" />
+<a id="sdk-constructor"></a>
 
 ### Constructor
 
-```ts theme={null}
+```ts
 new APIError(
    status, 
    body, 
@@ -65,15 +65,15 @@ new APIError(
 
 #### Overrides
 
-[`TypeSafeError`](/sdk/javascript/api/classes/TypeSafeError).[`constructor`](/sdk/javascript/api/classes/TypeSafeError#sdk-constructor)
+[`TypeSafeError`](./TypeSafeError.md).[`constructor`](./TypeSafeError.md#sdk-constructor)
 
 ## Properties
 
-<a id="sdk-body" />
+<a id="sdk-body"></a>
 
 ### body
 
-```ts theme={null}
+```ts
 readonly body: unknown;
 ```
 
@@ -81,11 +81,11 @@ Parsed JSON, response text, or `undefined` for an empty body.
 
 ***
 
-<a id="sdk-headers" />
+<a id="sdk-headers"></a>
 
 ### headers
 
-```ts theme={null}
+```ts
 readonly headers: Headers;
 ```
 
@@ -93,11 +93,11 @@ HTTP response headers.
 
 ***
 
-<a id="sdk-requestid" />
+<a id="sdk-requestid"></a>
 
 ### requestId
 
-```ts theme={null}
+```ts
 readonly requestId: string | undefined;
 ```
 
@@ -105,11 +105,11 @@ Request ID from `x-typesafe-request-id`, or `undefined` when absent.
 
 ***
 
-<a id="sdk-status" />
+<a id="sdk-status"></a>
 
 ### status
 
-```ts theme={null}
+```ts
 readonly status: number;
 ```
 
@@ -117,11 +117,11 @@ HTTP response status code.
 
 ## Methods
 
-<a id="sdk-fromresponse" />
+<a id="sdk-fromresponse"></a>
 
 ### fromResponse()
 
-```ts theme={null}
+```ts
 static fromResponse(
    status, 
    body, 

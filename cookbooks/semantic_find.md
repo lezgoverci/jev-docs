@@ -42,13 +42,13 @@ The search backend comes together in three parts:
 
 Create a key in the TypeSafe console and export it:
 
-```bash theme={null}
+```bash
 export TYPESAFE_API_KEY="your-key-here"
 ```
 
 ### Install the dependencies
 
-```bash theme={null}
+```bash
 pip install "typesafe-sdk>=0.5.7" cooksafe \
   --extra-index-url https://pypi.typesafe.ai/
 ```
@@ -61,7 +61,7 @@ or any spend. To make the requests live instead, set `TYPESAFE_API_KEY` and dele
 
 Start `semantic_search.py` with the imports and the client:
 
-```python theme={null}
+```python
 import os
 import urllib.request
 from pathlib import Path
@@ -84,7 +84,7 @@ result points to one quotable line.
 
 Add to `semantic_search.py`:
 
-```python theme={null}
+```python
 GIST = (
     "https://gist.githubusercontent.com/eugene-shvarts/900632789a24983d5678ffd508dd01f6"
     "/raw/cf9c2ab422d568deade949ef0a06bed6896964b9/github-tos.txt"
@@ -108,7 +108,7 @@ The cache prevents repeated downloads, and `splitlines()` leaves a list of 218 s
 Now prefix each line with a short ID and join the lines back into one document. The model
 uses these IDs to point to its answer.
 
-```python theme={null}
+```python
 def line_id(i: int) -> str:
     return f"L{i:03d}"
 
@@ -130,7 +130,7 @@ A `Choice` question returns a probability for every option. Use the line IDs as 
 options,
 and "pick an option" becomes "point to a line."
 
-```python theme={null}
+```python
 def where_question(query: str) -> Choice:
     return Choice(
         instructions=f'Which line of the document contains the answer to: "{query}"?',
@@ -141,10 +141,11 @@ def where_question(query: str) -> Choice:
 The option descriptions are `None` because the document already contains the text for each
 ID. The query goes in `instructions`; the state stays unchanged between searches.
 
-<Info> A `Choice` question accepts up to 255 options, so this recipe searches documents of
-up to 255 lines in one request. Past that, search in two passes: one Choice question picks
-a window
-of lines, and a second ranks the lines inside it. </Info>
+> [!NOTE]
+>  A `Choice` question accepts up to 255 options, so this recipe searches documents of
+> up to 255 lines in one request. Past that, search in two passes: one Choice question picks
+> a window
+> of lines, and a second ranks the lines inside it. 
 
 ## Step 3: check whether an answer exists
 
@@ -154,7 +155,7 @@ closest irrelevant line.
 
 So ask a second question, in the same request:
 
-```python theme={null}
+```python
 def exists_question(query: str) -> Noul:
     return Noul(
         instructions=f'Does any line of the document address or answer: "{query}"?',
@@ -183,7 +184,7 @@ lines and applies the document verdict."
   data-path="cookbooks/semantic_find/recipe.png"
 />
 
-```python theme={null}
+```python
 @json_cache
 def _find(
     model: str,
@@ -220,7 +221,7 @@ Two pieces of local code finish the job: `verdict()` turns the raw `exists` prob
 into three states, with a middle one for partial answers, and `show()` renders `relevance`
 as a bar chart so the ranking is readable in a terminal.
 
-```python theme={null}
+```python
 FOUND, ABSENT = 0.7, 0.35  # present answers typically read >=0.9, absent <=0.05
 
 
@@ -252,7 +253,7 @@ before using them in production.
 Ask two questions that have direct answers, one that has no answer, and one that has a
 partial answer, four in all.
 
-```python theme={null}
+```python
 print(f"{len(LINES)} lines, {len(DOCUMENT):,} characters\n")
 show("who owns the code I upload?")
 print()

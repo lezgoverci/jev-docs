@@ -78,7 +78,7 @@ Decomposing the problem into a hierarchy like this has benefits of its own:
 These helpers download pinned taxonomy sources, parse them into direct-child trees,
 and render each search traversal as a static SVG.
 
-```python expandable theme={null}
+```python
 import html
 import os
 import shutil
@@ -627,7 +627,7 @@ Each sibling set becomes one `Choice` question in the next section, which also
 implements
 both traversal strategies and keeps the probabilities the static diagrams need.
 
-```python expandable theme={null}
+```python
 HIERARCHIES = load_hierarchies()
 MODEL, BEAM_WIDTH, MAX_DEPTH, EPSILON = "jev-1.12", 3, 12, 1e-9
 client = TypeSafeClient(
@@ -781,7 +781,7 @@ def compare_searches(hierarchy: Hierarchy) -> dict:
 Run both strategies on four labeled examples, compare their leaves against the
 expected classifications, and visualize the routes they explored.
 
-```python expandable theme={null}
+```python
 with ThreadPoolExecutor(max_workers=len(HIERARCHIES)) as executor:
     results = list(executor.map(compare_searches, HIERARCHIES))
 

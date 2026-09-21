@@ -14,15 +14,15 @@ The full response did not arrive within the timeout. A kind of `APIConnectionErr
 
 ## Extends
 
-* [`APIConnectionError`](/sdk/javascript/api/classes/APIConnectionError)
+* [`APIConnectionError`](./APIConnectionError.md)
 
 ## Constructors
 
-<a id="sdk-constructor" />
+<a id="sdk-constructor"></a>
 
 ### Constructor
 
-```ts theme={null}
+```ts
 new APITimeoutError(timeoutMs, options?): APITimeoutError;
 ```
 
@@ -42,15 +42,15 @@ new APITimeoutError(timeoutMs, options?): APITimeoutError;
 
 #### Overrides
 
-[`APIConnectionError`](/sdk/javascript/api/classes/APIConnectionError).[`constructor`](/sdk/javascript/api/classes/APIConnectionError#sdk-constructor)
+[`APIConnectionError`](./APIConnectionError.md).[`constructor`](./APIConnectionError.md#sdk-constructor)
 
 ## Properties
 
-<a id="sdk-timeoutms" />
+<a id="sdk-timeoutms"></a>
 
 ### timeoutMs
 
-```ts theme={null}
+```ts
 readonly timeoutMs: number;
 ```
 

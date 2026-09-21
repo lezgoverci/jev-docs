@@ -60,7 +60,7 @@ You end up with a `suggest()` function that returns at most one skill name, a
 `suggestion_block()` that wraps it for the system prompt, and the harness that produced the
 table above, ready to point at your own roster.
 
-```mermaid actions={true} theme={null}
+```mermaid
 flowchart LR
     subgraph C1["Call 1 - skim all 182 skills"]
         direction TB
@@ -89,7 +89,7 @@ flowchart LR
 * Set a [TypeSafe API key](https://console.typesafe.ai/keys), and an Anthropic key for the
   agent being measured.
 
-```bash theme={null}
+```bash
 pip install anthropic matplotlib ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 export TYPESAFE_API_KEY=your-key-here
 export ANTHROPIC_API_KEY=your-key-here
@@ -104,7 +104,7 @@ export ANTHROPIC_API_KEY=your-key-here
 numbers below instead of calling either API. Delete `json_cache.json` to run live. The
 published run used `jev-1.12` and `claude-haiku-4-5-20251001`, rendered 2026-07-31.
 
-```python expandable theme={null}
+```python
 import json
 import os
 from collections import defaultdict
@@ -163,7 +163,7 @@ shows it, the full description, and the opening of its `SKILL.md`.
 
 The index below, and the instructions above it in the prompt, are copied from Hermes.
 
-```python expandable theme={null}
+```python
 ROSTER = json.loads(Path("hermes_roster.json").read_text(encoding="utf-8"))
 BY_NAME = {skill["name"]: skill for skill in ROSTER}
 
@@ -272,7 +272,7 @@ better on each:
 * **needless load**: of the uncovered requests, the share where the agent called
   `skill_view` at all.
 
-```python theme={null}
+```python
 REQUESTS = json.loads(Path("requests.json").read_text(encoding="utf-8"))
 POSITIVES = [p for p in REQUESTS if p["gold"]]
 NEGATIVES = [p for p in REQUESTS if not p["gold"]]
@@ -298,7 +298,7 @@ inside it, so the roster text is identical on every turn to maintain prefix cach
 The agent has a minimal set of tools, including `skill_view` to load a skill using a
 free-text name. The name must match the skill exactly for a correct load.
 
-```python expandable theme={null}
+```python
 # Verbatim from hermes-agent tools/skills_tool.py:SKILL_VIEW_SCHEMA.
 SKILL_VIEW_DESCRIPTION = (
     "Skills allow for loading information about specific tasks and workflows, as "
@@ -400,7 +400,7 @@ def run_arm(arm: str, suggestions: dict[str, str]) -> dict[str, dict]:
 The agent runs first with nothing but its roster, the way it works today. Its two error
 rates are the baseline the rest of the cookbook measures against.
 
-```python theme={null}
+```python
 baseline = run_arm("baseline", {})
 base_scores = summarise(baseline)
 print(
@@ -442,10 +442,10 @@ looking in roughly the right place.
 
 One request carries two kinds of question:
 
-* **`which`** is a [`Choice`](/primitives/choice) question
+* **`which`** is a [`Choice`](../primitives/choice.md) question
   over all 182 skill names, with the index description as each option's criteria (the same
   text the agent itself gets). Its probabilities are the ranking.
-* **three [`Noul`](/primitives/noul) questions about the
+* **three [`Noul`](../primitives/noul.md) questions about the
   request**, printed below, each asking a different way whether it wants an action taken
   rather than an explanation given. `prose_suffices`
   counts the other way round. Their mean decides whether to suggest anything at all, and
@@ -461,7 +461,7 @@ One `Choice` question holds a roster this size comfortably. A few times larger a
 would
 split it into chunks and rank each one, then run this same shortlist step over the winners.
 
-```python expandable theme={null}
+```python
 CHOICE_INSTRUCTIONS = (
     "Which of these skills, if any, is the right one to load to help with the "
     "user's latest request?"
@@ -582,7 +582,7 @@ Three options leave room for the full description plus the opening of each skill
   thing the request asks for? Each is answered on its own, so they can all come back low,
   and a shortlist whose highest one lands under 0.30 gets dropped entirely.
 
-```python expandable theme={null}
+```python
 RERANK_INSTRUCTIONS = (
     "Exactly one of these skills is the right one to load for the user's latest "
     "request. Which one? Read what each actually does, not just its name."
@@ -689,7 +689,7 @@ To point it at your own roster, replace `hermes_roster.json`. Every question abo
 `name`, `description`, `description_full`, and `body` out of that file, and nothing else
 knows about Hermes.
 
-```python theme={null}
+```python
 def suggest(request: str) -> tuple[str, ...]:
     """At most one skill name for a request, or () for "nothing here applies"."""
     wide = rank_wide(request)
@@ -754,7 +754,7 @@ than none. And a turn with nothing to suggest still sends a sentence saying so; 
 nothing at all would leave the roster's own "err on the side of loading" instruction
 unopposed.
 
-```python expandable theme={null}
+```python
 texts = [request["text"] for request in REQUESTS]
 with ThreadPoolExecutor(max_workers=WORKERS) as pool:  # up to 488 x 2 TypeSafe requests
     suggested = dict(zip(texts, pool.map(suggest, texts)))
@@ -800,7 +800,7 @@ oracle             2.5%            1.2%
 baseline -> TypeSafe:  2.3x fewer wrong loads, 2.4x fewer needless ones
 ```
 
-```python theme={null}
+```python
 moved = [
     (
         baseline[p["text"]]["loaded"][:1] == [p["gold"]],
@@ -825,7 +825,7 @@ The suggestion fixes many more requests than it breaks, but it does break some t
 had right on its own. A confident wrong suggestion is more persuasive than no suggestion at
 all, which is the price of putting one in front of the turn.
 
-```python expandable theme={null}
+```python
 SURFACE, INK, INK2, MUTED = "#fcfcfb", "#0b0b0b", "#52514e", "#898781"
 GRID, AXIS, BLUE, ORANGE = "#e1e0d9", "#c3c2b7", "#2a78d6", "#eb6834"
 
@@ -903,7 +903,7 @@ everything, then a close look at two or three. Either step may come back empty-h
 Build a playground link for the deck request from step 4, using each candidate's full
 description and body excerpt as its criteria.
 
-```python theme={null}
+```python
 demo_shortlist = tuple(name for name, _ in rank_wide(DEMO[1])["ranked"][:SHORTLIST])
 playground_link = make_playground_link(
     build_state(DEMO[1]),
@@ -922,8 +922,8 @@ display(
 ## What's next
 
 The same shape shows up elsewhere:
-[Intent Routing](/patterns/intent-routing) for routing to a
-handler rather than a skill, [Confidence](/confidence) for
+[Intent Routing](../patterns/intent-routing.md) for routing to a
+handler rather than a skill, [Confidence](../confidence.md) for
 picking the two thresholds, and
-[Speculative Fan-Out](/patterns/fan-out) for putting every
+[Speculative Fan-Out](../patterns/fan-out.md) for putting every
 question in one request.

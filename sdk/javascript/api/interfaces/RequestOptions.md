@@ -14,11 +14,11 @@ Per-call options that override client settings.
 
 ## Properties
 
-<a id="sdk-headers" />
+<a id="sdk-headers"></a>
 
 ### headers?
 
-```ts theme={null}
+```ts
 optional headers?: Record<string, string>;
 ```
 
@@ -26,11 +26,11 @@ Additional headers, merged over `defaultHeaders`.
 
 ***
 
-<a id="sdk-retry" />
+<a id="sdk-retry"></a>
 
 ### retry?
 
-```ts theme={null}
+```ts
 optional retry?: Partial<RetryPolicy>;
 ```
 
@@ -38,11 +38,11 @@ Retry overrides for this call; omitted fields inherit client settings.
 
 ***
 
-<a id="sdk-signal" />
+<a id="sdk-signal"></a>
 
 ### signal?
 
-```ts theme={null}
+```ts
 optional signal?: AbortSignal;
 ```
 
@@ -50,11 +50,11 @@ Cancellation signal for the request and pending retries.
 
 ***
 
-<a id="sdk-timeout" />
+<a id="sdk-timeout"></a>
 
 ### timeout?
 
-```ts theme={null}
+```ts
 optional timeout?: number;
 ```
 

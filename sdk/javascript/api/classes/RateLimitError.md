@@ -14,15 +14,15 @@ HTTP 429: the rate limit was exceeded.
 
 ## Extends
 
-* [`APIError`](/sdk/javascript/api/classes/APIError)
+* [`APIError`](./APIError.md)
 
 ## Constructors
 
-<a id="sdk-constructor" />
+<a id="sdk-constructor"></a>
 
 ### Constructor
 
-```ts theme={null}
+```ts
 new RateLimitError(
    status, 
    body, 
@@ -55,15 +55,15 @@ new RateLimitError(
 
 #### Inherited from
 
-[`APIError`](/sdk/javascript/api/classes/APIError).[`constructor`](/sdk/javascript/api/classes/APIError#sdk-constructor)
+[`APIError`](./APIError.md).[`constructor`](./APIError.md#sdk-constructor)
 
 ## Properties
 
-<a id="sdk-body" />
+<a id="sdk-body"></a>
 
 ### body
 
-```ts theme={null}
+```ts
 readonly body: unknown;
 ```
 
@@ -71,15 +71,15 @@ Parsed JSON, response text, or `undefined` for an empty body.
 
 #### Inherited from
 
-[`APIError`](/sdk/javascript/api/classes/APIError).[`body`](/sdk/javascript/api/classes/APIError#sdk-body)
+[`APIError`](./APIError.md).[`body`](./APIError.md#sdk-body)
 
 ***
 
-<a id="sdk-headers" />
+<a id="sdk-headers"></a>
 
 ### headers
 
-```ts theme={null}
+```ts
 readonly headers: Headers;
 ```
 
@@ -87,15 +87,15 @@ HTTP response headers.
 
 #### Inherited from
 
-[`APIError`](/sdk/javascript/api/classes/APIError).[`headers`](/sdk/javascript/api/classes/APIError#sdk-headers)
+[`APIError`](./APIError.md).[`headers`](./APIError.md#sdk-headers)
 
 ***
 
-<a id="sdk-requestid" />
+<a id="sdk-requestid"></a>
 
 ### requestId
 
-```ts theme={null}
+```ts
 readonly requestId: string | undefined;
 ```
 
@@ -103,15 +103,15 @@ Request ID from `x-typesafe-request-id`, or `undefined` when absent.
 
 #### Inherited from
 
-[`APIError`](/sdk/javascript/api/classes/APIError).[`requestId`](/sdk/javascript/api/classes/APIError#sdk-requestid)
+[`APIError`](./APIError.md).[`requestId`](./APIError.md#sdk-requestid)
 
 ***
 
-<a id="sdk-retryafterms" />
+<a id="sdk-retryafterms"></a>
 
 ### retryAfterMs
 
-```ts theme={null}
+```ts
 readonly retryAfterMs: number | undefined;
 ```
 
@@ -119,11 +119,11 @@ Server retry delay in milliseconds, or `undefined` when absent or invalid.
 
 ***
 
-<a id="sdk-status" />
+<a id="sdk-status"></a>
 
 ### status
 
-```ts theme={null}
+```ts
 readonly status: number;
 ```
 
@@ -131,15 +131,15 @@ HTTP response status code.
 
 #### Inherited from
 
-[`APIError`](/sdk/javascript/api/classes/APIError).[`status`](/sdk/javascript/api/classes/APIError#sdk-status)
+[`APIError`](./APIError.md).[`status`](./APIError.md#sdk-status)
 
 ## Methods
 
-<a id="sdk-fromresponse" />
+<a id="sdk-fromresponse"></a>
 
 ### fromResponse()
 
-```ts theme={null}
+```ts
 static fromResponse(
    status, 
    body, 
@@ -165,8 +165,8 @@ Create the error subclass for an HTTP status code.
 
 #### Returns
 
-[`APIError`](/sdk/javascript/api/classes/APIError)
+[`APIError`](./APIError.md)
 
 #### Inherited from
 
-[`APIError`](/sdk/javascript/api/classes/APIError).[`fromResponse`](/sdk/javascript/api/classes/APIError#sdk-fromresponse)
+[`APIError`](./APIError.md).[`fromResponse`](./APIError.md#sdk-fromresponse)

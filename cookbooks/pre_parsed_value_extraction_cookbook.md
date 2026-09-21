@@ -39,13 +39,13 @@ code normalizes it and acts on it.*
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython phonenumbers "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
 then set `TYPESAFE_API_KEY`.
 
-```python theme={null}
+```python
 import os
 import re
 from decimal import Decimal
@@ -81,7 +81,7 @@ country.
 
 Every call is cached to `json_cache.json`, so re-rendering makes no API calls.
 
-```python expandable theme={null}
+```python
 EMAIL_RE = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
 PHONE_RE = re.compile(r"\(?\+?\d[\d\s()\-.]{6,}\d")
 MONEY_RE = re.compile(r"[$€£¥]\s?\d[\d,]*(?:\.\d{2})?")
@@ -149,7 +149,7 @@ Four addresses in the headers. The body asks for the receipt to go to a personal
 address instead of the `To:` billing alias, so the answer depends on reading the body.
 Two questions here: which address gets the receipt, and which one sent the message.
 
-```python theme={null}
+```python
 EMAIL_DOC = """From: Dana Whit <dana.whit@acme-corp.com>
 To: billing@acme-corp.com
 Cc: orders@acme-corp.com
@@ -190,7 +190,7 @@ Three numbers, none of them carrying a country code. TypeSafe picks the mobile a
 reads the country from the text; `phonenumbers` combines those two answers into E.164,
 the international format that starts with a `+` and the country code.
 
-```python theme={null}
+```python
 PHONE_DOC = """Reach our San Francisco office at these numbers: main desk (415) 555-0199,
 billing fax (415) 555-0142, and my direct cell (415) 555-0177. Call the cell if it's urgent."""
 
@@ -229,7 +229,7 @@ An invoice with four amounts on it. TypeSafe picks the total due and the credit,
 the currency, and flags each picked amount as a charge or a credit. The code copies each
 picked string and parses it into a `Decimal`.
 
-```python expandable theme={null}
+```python
 MONEY_DOC = """Invoice INV-2087.
 Subtotal: $1,200.00
 Sales tax: $115.50
@@ -286,7 +286,7 @@ sign of each `Decimal` it parses.
 A share link that opens the email thread in the browser, with the receipt question on it
 and the four addresses the regex found among its options.
 
-```python theme={null}
+```python
 receipt_criteria = {e: None for e in emails} | {
     NONE: "None of these is the requested value."
 }

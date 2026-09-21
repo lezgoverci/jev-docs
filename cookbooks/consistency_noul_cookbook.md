@@ -43,14 +43,14 @@ while keeping the underlying probabilities visible.
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install anthropic openai matplotlib ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
 then set `TYPESAFE_API_KEY`, `ANTHROPIC_API_KEY`, and `OPENAI_API_KEY`.
 This run uses `jev-latest` on the production API, sampled on 2026-09-11.
 
-```python expandable theme={null}
+```python
 import hashlib
 import json
 import os
@@ -121,7 +121,7 @@ LLM answers scatter and the models disagree.
 The claim is a JSON structure. The LLMs get `json.dumps(CLAIM)` in the prompt; TypeSafe
 takes the structure as the state directly.
 
-```python expandable theme={null}
+```python
 CLAIM = {
     "policy": {
         "policy_id": "AP-77413",
@@ -169,7 +169,7 @@ One `key -> question` entry per row, phrased so a yes means the thing we are che
 is true. That keeps every row comparable: each model's probability and TypeSafe's `noul`
 measure the same thing.
 
-```python theme={null}
+```python
 QUESTIONS = {
     "covered": "Is the loss covered under the policy's collision coverage?",
     "exclusion": "Does a policy exclusion apply to this loss?",
@@ -214,7 +214,7 @@ from variation that would occur on identical requests.
 
 Each helper returns the answer, an estimated cost, and the round-trip latency.
 
-````python expandable theme={null}
+````python
 def rubric_prompt(mode: str, sample_index: int) -> str:
     """The claim + all 14 questions in one prompt; ``mode`` picks the answer format.
 
@@ -391,7 +391,7 @@ We draw `NUM_SAMPLES` = 15 repeats per condition. Each repeat has its own cache 
 counts as a distinct draw, and the cache (`json_cache.json`) ships with the cookbook, so
 re-rendering reuses it and spends no API calls. Delete the cache to sample live again.
 
-```python expandable theme={null}
+```python
 CONDITIONS = []
 for model in BASE_MODELS:  # non-reasoning models: probabilities, then True/False
     for temp_value, temp_label in ((0, "0"), (None, "default")):
@@ -481,7 +481,7 @@ rate for TypeSafe. They are not verified `jev-latest` prices or current billing 
 One row is one full 14-question rubric call. `time/call` and `cost/call` average the 15
 calls, and the `vs ts_noul` columns divide by the TypeSafe figures.
 
-```python theme={null}
+```python
 typesafe_cost = mean([cost for cost, _latency in stats["typesafe_noul"]])
 typesafe_latency = mean([latency for _cost, latency in stats["typesafe_noul"]])
 name_w = max(len(name) for name in [*LABELS, "typesafe_noul"]) + 2
@@ -533,7 +533,7 @@ How to read it:
 `typesafe_noul` varies most on `covered` (`0.43` to `0.53`) and `exclusion` (`0.53` to
 `0.62`). Some LLM rows vary at temperature `0` too. Conditions disagree on judgment calls.
 
-```python expandable theme={null}
+```python
 rows_per_block = len(LABELS) + 1  # rows per question block
 GAP = 1  # blank spacer row(s) between question blocks
 row_values, row_labels, blocks = [], [], []
@@ -642,7 +642,7 @@ examples and from the cost of incorrect decisions and of review.
 
 The illustration below applies this band to the recorded TypeSafe probabilities.
 
-```python expandable theme={null}
+```python
 def noul_decision_with_uncertainty(probability: float) -> str:
     """Map valid TypeSafe probabilities through an inclusive uncertainty band."""
     if probability < NOUL_UNCERTAINTY_LOW:
@@ -693,7 +693,7 @@ an automatic decision that clears the band is not shown to be correct.
 The link below opens the same claim and rubric in the playground: one claim, the same 14
 `Noul` questions, and TypeSafe `jev-latest`. It omits the changing `uid` field used above.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(
     {"claim": CLAIM},
     {key: Noul(instructions=question) for key, question in QUESTIONS.items()},

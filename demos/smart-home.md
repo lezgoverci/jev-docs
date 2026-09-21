@@ -14,15 +14,15 @@ local_path: demos/smart-home.md
 
 ## Check it out in action
 
-<Frame>
-  <iframe src="https://www.loom.com/embed/18c4dbcf8db546dfb2d7f2ef018e78e4" title="Smart home assistant demo video" allow="fullscreen; picture-in-picture" style={{ width: '100%', aspectRatio: '16 / 9', border: 'none' }} />
-</Frame>
+[![Watch Demo Video](https://cdn.loom.com/sessions/thumbnails/18c4dbcf8db546dfb2d7f2ef018e78e4-with-play.gif)](https://www.loom.com/share/18c4dbcf8db546dfb2d7f2ef018e78e4)
+
+[▶ Watch the demo video on Loom](https://www.loom.com/share/18c4dbcf8db546dfb2d7f2ef018e78e4)
 
 ## How it works
 
 ### Speculative fan-out
 
-The chief pattern demonstrated here is [speculative fan-out](/patterns/fan-out). Each user request is evaluated against a long list of questions, including many that will end up irrelevant for most requests.
+The chief pattern demonstrated here is [speculative fan-out](../patterns/fan-out.md). Each user request is evaluated against a long list of questions, including many that will end up irrelevant for most requests.
 
 Let's consider the following user request:
 

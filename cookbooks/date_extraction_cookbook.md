@@ -38,13 +38,13 @@ it or sends it to review.*
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
 then set `TYPESAFE_API_KEY`.
 
-```python expandable theme={null}
+```python
 import os
 from datetime import date, timedelta
 from pathlib import Path
@@ -89,7 +89,7 @@ YEAR_WINDOW = list(range(1900, 2051))  # 1900..2050
 json_cache = JsonCache(Path("json_cache.json"))
 ```
 
-```python theme={null}
+```python
 # The demo cells below run when this file is executed as the cookbook; the constants and the pure
 # resolve/assemble code stay importable, so the calendar math can be unit-tested on its own.
 if __name__ == "__cookbook__":
@@ -119,7 +119,7 @@ states no year and code fills one in. `out_of_range` means the text states a yea
 the list, and code flags that instead of guessing. If a list that long bothers you, pull
 the year-like numbers out of the text first and offer the model only those.
 
-```python expandable theme={null}
+```python
 def date_questions(role: str) -> dict[str, Choice]:
     """Seven typed choices that read a date's shape and parts off the text -- no math."""
     absent = "The document does not state this, or it is not this kind of date."
@@ -193,7 +193,7 @@ answer on any one part can send the whole date to review.
 qualifier means the next one on or after today. `next` means the following calendar week,
 and `current` means this week.
 
-```python expandable theme={null}
+```python
 @json_cache
 def read_parts(document: str, role: str) -> dict:
     """One TypeSafe call -> {part: {choice, confidence}} for the seven questions."""
@@ -308,7 +308,7 @@ a form deadline written without a year, a survey that closes "today", a review s
 "next Thursday", and a date the form never mentions. All of them resolve against `TODAY` =
 2026-07-30, a Thursday.
 
-```python theme={null}
+```python
 CONTRACT = "This agreement is effective January 1, 2025 and expires December 31, 2027."
 FORM = "Please return the signed form by August 14."
 SURVEY = "Heads up - the customer survey closes today at 5pm."
@@ -366,7 +366,7 @@ Every answer comes back with a calibrated confidence, and a date's confidence is
 one among the parts that went into it. A date under `REVIEW_BELOW` = 0.60 goes to a person,
 and so does a date code could not assemble at all. The rest go straight through.
 
-```python theme={null}
+```python
 if __name__ == "__cookbook__":
     confident = [
         (doc, role)
@@ -407,7 +407,7 @@ The link below carries the "next Thursday" message and the same questions the co
 Open it to see the answers and their confidences, and to change the wording without writing
 any code.
 
-```python theme={null}
+```python
 if __name__ == "__cookbook__":
     playground_link = make_playground_link(
         REVIEW, date_questions("the date of the design review"), models=[TYPESAFE_MODEL]

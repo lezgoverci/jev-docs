@@ -14,11 +14,11 @@ A yes/no answer.
 
 ## Properties
 
-<a id="sdk-noul" />
+<a id="sdk-noul"></a>
 
 ### noul
 
-```ts theme={null}
+```ts
 readonly noul: number;
 ```
 
@@ -26,10 +26,10 @@ Probability of a yes answer, from zero to one.
 
 ***
 
-<a id="sdk-type" />
+<a id="sdk-type"></a>
 
 ### type
 
-```ts theme={null}
+```ts
 readonly type: "noul";
 ```

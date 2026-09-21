@@ -8,7 +8,7 @@ local_path: sdk/javascript/api/interfaces/ChoiceResponse.md
 > Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Interface: ChoiceResponse<T>
+# Interface: ChoiceResponse\<T\>
 
 A selected label and its probabilities.
 
@@ -16,15 +16,15 @@ A selected label and its probabilities.
 
 ### T
 
-`T` *extends* [`ChoiceCriteria`](/sdk/javascript/api/type-aliases/ChoiceCriteria) = [`ChoiceCriteria`](/sdk/javascript/api/type-aliases/ChoiceCriteria)
+`T` *extends* [`ChoiceCriteria`](../type-aliases/ChoiceCriteria.md) = [`ChoiceCriteria`](../type-aliases/ChoiceCriteria.md)
 
 ## Properties
 
-<a id="sdk-choice" />
+<a id="sdk-choice"></a>
 
 ### choice
 
-```ts theme={null}
+```ts
 readonly choice: keyof T & string;
 ```
 
@@ -32,11 +32,11 @@ The selected label.
 
 ***
 
-<a id="sdk-confidence" />
+<a id="sdk-confidence"></a>
 
 ### confidence
 
-```ts theme={null}
+```ts
 readonly confidence: number;
 ```
 
@@ -44,11 +44,11 @@ Reported confidence in the selected label.
 
 ***
 
-<a id="sdk-probabilities" />
+<a id="sdk-probabilities"></a>
 
 ### probabilities
 
-```ts theme={null}
+```ts
 readonly probabilities: { readonly [label in string | number | symbol]: number };
 ```
 
@@ -56,10 +56,10 @@ Probabilities keyed by label.
 
 ***
 
-<a id="sdk-type" />
+<a id="sdk-type"></a>
 
 ### type
 
-```ts theme={null}
+```ts
 readonly type: "choice";
 ```

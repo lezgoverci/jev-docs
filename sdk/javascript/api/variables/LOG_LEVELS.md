@@ -10,7 +10,7 @@ local_path: sdk/javascript/api/variables/LOG_LEVELS.md
 
 # Variable: LOG_LEVELS
 
-```ts theme={null}
+```ts
 const LOG_LEVELS: readonly LogLevel[];
 ```
 

@@ -60,12 +60,11 @@ The last two rows are the loop. One proposal call, with nothing to go on yet, ge
 Four more rounds of reading its own worst predictions get to 1.77. Most of the gain is in
 that first call, and how much the four rounds after it add is measured further down.
 
-<Tip>
-  Want to take this notebook further or apply it to another problem? See
-  [Next steps](#next-steps).
-</Tip>
+> [!TIP]
+> Want to take this notebook further or apply it to another problem? See
+> [Next steps](#next-steps).
 
-```python expandable theme={null}
+```python
 from __future__ import annotations
 
 import json
@@ -1024,7 +1023,7 @@ def rounds_chart(
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install anthropic openai catboost numpy matplotlib ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
@@ -1038,7 +1037,7 @@ The first code cell is the whole implementation: API calls, encodings, metrics, 
 style. It is there so this file runs on its own, and the docs site folds it away. Skip it
 on a first read - the recipe starts under it.
 
-```python theme={null}
+```python
 N_DEV, N_TEST = 1200, 800  # the loop reads dev labels only; test is scored once
 ROUNDS = 5  # a round answers questions for all 2,000 rows: 2,000 requests
 PROPOSER = "claude-sonnet-5"  # or "gpt-5.6-luna"; the cache holds the Anthropic run
@@ -1105,7 +1104,7 @@ trained on the other parts. Those predictions do three jobs: they judge every re
 drop, they pick the notes the next round reads, and they tell the proposer which of its
 questions helped, by how far they have moved since the round before.
 
-```python theme={null}
+```python
 print("every intensity question is graded on these five levels:\n")
 for i, level in enumerate(INTENSITY_LEVELS):
     print(f"  {i}. {level}")
@@ -1149,7 +1148,7 @@ whether it was worth asking. A revision or a drop takes away a column the model 
 using, so each one is tried first: refit with the change, and keep it only if the dev
 error goes down. A refit costs no API calls, so trying a change and rejecting it is free.
 
-```python theme={null}
+```python
 run = run_loop(
     split, PROPOSER, ROUNDS, EXAMPLES, ENCODING, MIN_SPREAD, CHANGE_TOLERANCE
 )
@@ -1157,7 +1156,7 @@ accepted, answers_for = run.accepted, run.answers_for
 snapshots, history = run.snapshots, run.history
 ```
 
-```text expandable theme={null}
+```text
 round 1: 18 add, 0 revise, 0 drop
   added  complexity, fruit_intensity, tannin_structure, acidity_intensity,
           oak_intensity, finish_length, balance_harmony, aging_potential,
@@ -1236,7 +1235,7 @@ Questions whose answer rises with the score come first, questions whose answer f
 it come after the divider. So going left to right, from the worst review to the best, the
 answers above the divider should climb and the answers below it should drop off.
 
-```python theme={null}
+```python
 X, labels = design(accepted, answers_for, ENCODING)
 column_importances = importances(X[DEV], SCORES[DEV])
 # an encoding gives a feature more than one column, so add a feature's columns back up
@@ -1294,7 +1293,7 @@ Spearman is rank correlation, where 1.0 would put the held-out wines in exactly 
 critic's order. The word-count row is CatBoost's own text handling, not a tuned
 text-regression pipeline. All of this is one dataset and one run of the loop.
 
-```python theme={null}
+```python
 predicted = fit_predict(X, split)
 text_predicted = fit_predict_text(split)
 
@@ -1348,7 +1347,7 @@ lines move together, so the dev number the loop steers by tracks the held-out nu
 never sees. The interval under the title comes from resampling the held-out rows, so it
 says whether the move from round 1 to round 5 is bigger than the noise in 800 rows.
 
-```python theme={null}
+```python
 curve, per_round = [], []
 for features in snapshots:
     X_round, _ = design(features, answers_for, ENCODING)
@@ -1381,7 +1380,7 @@ Round 5 proposed four adds, two rewordings and eight drops, and gave the first d
 that did not improve. There is only so much to ask about a 245-character note, and by round
 5 the proposals had tipped from adding questions to dropping them.
 
-```python theme={null}
+```python
 kinds = {f["name"]: f["kind"] for f in accepted}
 print("feature importance share: % of total CatBoost importance across all questions")
 print(f"{'feature':<38}{'asked as':<10}{'importance share':>16}")
@@ -1468,7 +1467,7 @@ This run keeps the loop small. Direct extensions:
 
 This share link holds one tasting note plus every question the loop ended up with.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(
     NOTES[0], feature_questions(accepted), models=[TYPESAFE_MODEL]
 )

@@ -48,14 +48,14 @@ same threshold to LLM probability conditions, keeping abstentions and changes vi
 
 ## Setup
 
-```bash theme={null}
+```bash
 pip install anthropic openai matplotlib ipython "typesafe-sdk>=0.5.7" cooksafe --extra-index-url https://pypi.typesafe.ai/
 ```
 
 then set `TYPESAFE_API_KEY`, `ANTHROPIC_API_KEY`, and `OPENAI_API_KEY`.
 This run uses `jev-latest` on the production API, sampled on 2026-09-11.
 
-```python expandable theme={null}
+```python
 import hashlib
 import json
 import os
@@ -121,7 +121,7 @@ should not randomly move the same post between enforcement paths.
 
 The LLMs get `json.dumps(POST)` in the prompt. TypeSafe gets the Python dict directly.
 
-```python theme={null}
+```python
 POST = {
     "post_id": "P-88213",
     "author": {
@@ -158,7 +158,7 @@ short description. TypeSafe returns a picked `choice` plus a `probabilities`
 distribution over the labels. The LLMs are asked to use the same label sets, which
 keeps every row comparable.
 
-```python expandable theme={null}
+```python
 QUESTIONS = {
     "category": (
         "What is the single most applicable content-policy category for this post?",
@@ -257,7 +257,7 @@ from variation that would occur on identical requests.
 
 Each helper returns the answer, an estimated cost, and the round-trip latency.
 
-````python expandable theme={null}
+````python
 def argmax_label(values: list, labels: list[str]) -> str | None:
     """The label with the most probability mass, or ``None`` if any value is missing or
     non-numeric -- a partially parsed distribution never yields a confident-looking pick."""
@@ -501,7 +501,7 @@ We draw `NUM_SAMPLES` = 15 repeats per condition. Each repeat has its own cache 
 counts as a distinct draw, and the cache (`json_cache.json`) ships with the cookbook, so
 re-rendering reuses it and spends no API calls. Delete the cache to sample live again.
 
-```python expandable theme={null}
+```python
 CONDITIONS = []
 for (
     model
@@ -596,7 +596,7 @@ One row is one full 8-question rubric call. `time/call` and `cost/call` average 
 calls, and the `vs ts_choice` columns divide by the TypeSafe figures. The LLMs run in a
 16-way pool.
 
-```python theme={null}
+```python
 typesafe_cost = mean([cost for cost, _latency in stats["typesafe_choice"]])
 typesafe_latency = mean([latency for _cost, latency in stats["typesafe_choice"]])
 name_w = max(len(name) for name in ALL_LABELS) + 2  # fit the longest condition label
@@ -651,7 +651,7 @@ How to read it:
 
 Single-pick conditions keep their returned labels: they provide no uncertainty estimate.
 
-```python expandable theme={null}
+```python
 GAP = 1  # blank spacer row(s) between question blocks
 HEAT_LABELS = ALL_LABELS
 rows_per_block = len(HEAT_LABELS)  # rows per question block
@@ -803,7 +803,7 @@ dev, and count parse failures separately.
 The table compares every probability-output LLM condition against TypeSafe. The single-pick
 rows are left out, since they emit hard labels rather than probability distributions.
 
-```python expandable theme={null}
+```python
 def probability_std_stats(samples: list) -> tuple[float, float, float]:
     """Mean label std dev, max label std dev, parse-failure rate."""
     label_stds = []
@@ -869,7 +869,7 @@ score over all 8 questions, with the highest agreement first.
 
 Single-pick LLM conditions are excluded because they provide no uncertainty estimate.
 
-```python expandable theme={null}
+```python
 # Compute policy decisions and agreement once for both this chart and the comparison table.
 decisions_by_condition = {}
 policy_agreement_by_condition = {}
@@ -953,7 +953,7 @@ We apply the same rule to every probability-output condition. Single-pick LLM re
 have no probability estimate; their synthetic one-hot vectors cannot measure uncertainty,
 so they are excluded from the agreement chart and table.
 
-```python expandable theme={null}
+```python
 def agreement_rate(samples: list) -> float:
     """Mean over questions of the raw plurality label's share across all NUM_SAMPLES draws.
 
@@ -1020,7 +1020,7 @@ some repeats and not others. No question produced two different concrete TypeSaf
 None of this shows accuracy or superiority: Haiku at temperature 0 had 100% agreement
 here, with no abstentions.
 
-```python theme={null}
+```python
 # Show every TypeSafe decision while retaining the top probability behind it.
 policy_decisions = decisions_by_condition[TYPESAFE_LABEL]
 policy_values = []
@@ -1063,7 +1063,7 @@ agree` column still report the original model outputs.
 The link below opens the same post and rubric in the playground: one post, the same 8
 `Choice`s, and TypeSafe `jev-latest`.
 
-```python theme={null}
+```python
 playground_link = make_playground_link(
     {"post": POST},
     {

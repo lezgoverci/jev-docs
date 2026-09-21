@@ -14,11 +14,11 @@ Client options. Explicit values take precedence over environment variables, then
 
 ## Properties
 
-<a id="sdk-apikey" />
+<a id="sdk-apikey"></a>
 
 ### apiKey?
 
-```ts theme={null}
+```ts
 optional apiKey?: string;
 ```
 
@@ -26,11 +26,11 @@ Required API key; falls back to `TYPESAFE_API_KEY`.
 
 ***
 
-<a id="sdk-baseurl" />
+<a id="sdk-baseurl"></a>
 
 ### baseURL?
 
-```ts theme={null}
+```ts
 optional baseURL?: string;
 ```
 
@@ -38,11 +38,11 @@ API root; falls back to `TYPESAFE_BASE_URL`, then `https://api.typesafe.ai`.
 
 ***
 
-<a id="sdk-dangerouslyallowbrowser" />
+<a id="sdk-dangerouslyallowbrowser"></a>
 
 ### dangerouslyAllowBrowser?
 
-```ts theme={null}
+```ts
 optional dangerouslyAllowBrowser?: boolean;
 ```
 
@@ -50,11 +50,11 @@ Allow browser use, exposing the API key to page users. Default: false.
 
 ***
 
-<a id="sdk-defaultheaders" />
+<a id="sdk-defaultheaders"></a>
 
 ### defaultHeaders?
 
-```ts theme={null}
+```ts
 optional defaultHeaders?: Record<string, string>;
 ```
 
@@ -62,11 +62,11 @@ Additional request headers; per-call headers take precedence.
 
 ***
 
-<a id="sdk-defaultmodel" />
+<a id="sdk-defaultmodel"></a>
 
 ### defaultModel?
 
-```ts theme={null}
+```ts
 optional defaultModel?: string;
 ```
 
@@ -74,11 +74,11 @@ Default model; falls back to `TYPESAFE_DEFAULT_MODEL`, then `jev-latest`.
 
 ***
 
-<a id="sdk-fetch" />
+<a id="sdk-fetch"></a>
 
 ### fetch?
 
-```ts theme={null}
+```ts
 optional fetch?: Fetch;
 ```
 
@@ -86,11 +86,11 @@ Custom HTTP fetch implementation for transport configuration or tests. Default: 
 
 ***
 
-<a id="sdk-logger" />
+<a id="sdk-logger"></a>
 
 ### logger?
 
-```ts theme={null}
+```ts
 optional logger?: Logger;
 ```
 
@@ -98,11 +98,11 @@ Logger filtered to `logLevel` and above. Default: prefixed `console`.
 
 ***
 
-<a id="sdk-loglevel" />
+<a id="sdk-loglevel"></a>
 
 ### logLevel?
 
-```ts theme={null}
+```ts
 optional logLevel?: LogLevel;
 ```
 
@@ -112,11 +112,11 @@ Known credential headers are redacted; bodies are not.
 
 ***
 
-<a id="sdk-retry" />
+<a id="sdk-retry"></a>
 
 ### retry?
 
-```ts theme={null}
+```ts
 optional retry?: Partial<RetryPolicy>;
 ```
 
@@ -124,11 +124,11 @@ Retry overrides; omitted fields use the defaults in `RetryPolicy`.
 
 ***
 
-<a id="sdk-timeout" />
+<a id="sdk-timeout"></a>
 
 ### timeout?
 
-```ts theme={null}
+```ts
 optional timeout?: number;
 ```
 

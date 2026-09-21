@@ -14,15 +14,15 @@ Request body for `POST /v1/systemone`, with the model resolved.
 
 ## Extends
 
-* [`SystemOneRequest`](/sdk/javascript/api/interfaces/SystemOneRequest)
+* [`SystemOneRequest`](./SystemOneRequest.md)
 
 ## Properties
 
-<a id="sdk-model" />
+<a id="sdk-model"></a>
 
 ### model
 
-```ts theme={null}
+```ts
 model: string;
 ```
 
@@ -30,15 +30,15 @@ Model override; omitted values inherit `defaultModel`.
 
 #### Overrides
 
-[`SystemOneRequest`](/sdk/javascript/api/interfaces/SystemOneRequest).[`model`](/sdk/javascript/api/interfaces/SystemOneRequest#sdk-model)
+[`SystemOneRequest`](./SystemOneRequest.md).[`model`](./SystemOneRequest.md#sdk-model)
 
 ***
 
-<a id="sdk-questions" />
+<a id="sdk-questions"></a>
 
 ### questions
 
-```ts theme={null}
+```ts
 questions: Questions;
 ```
 
@@ -46,15 +46,15 @@ Nonempty questions keyed by the names used to identify their answers.
 
 #### Inherited from
 
-[`SystemOneRequest`](/sdk/javascript/api/interfaces/SystemOneRequest).[`questions`](/sdk/javascript/api/interfaces/SystemOneRequest#sdk-questions)
+[`SystemOneRequest`](./SystemOneRequest.md).[`questions`](./SystemOneRequest.md#sdk-questions)
 
 ***
 
-<a id="sdk-state" />
+<a id="sdk-state"></a>
 
 ### state
 
-```ts theme={null}
+```ts
 state: EntryType;
 ```
 
@@ -62,4 +62,4 @@ Text, a JSON object or array, or `null` to evaluate.
 
 #### Inherited from
 
-[`SystemOneRequest`](/sdk/javascript/api/interfaces/SystemOneRequest).[`state`](/sdk/javascript/api/interfaces/SystemOneRequest#sdk-state)
+[`SystemOneRequest`](./SystemOneRequest.md).[`state`](./SystemOneRequest.md#sdk-state)
