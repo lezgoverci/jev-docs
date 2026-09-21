@@ -1,0 +1,17 @@
+---
+source_url: https://docs.typesafe.ai/sdk/javascript/api/type-aliases/LogLevel.md
+fetched_at: 2026-09-21
+local_path: sdk/javascript/api/type-aliases/LogLevel.md
+---
+
+> ## Documentation Index
+> Fetch the complete documentation index at: https://docs.typesafe.ai/llms.txt
+> Use this file to discover all available pages before exploring further.
+
+# Type Alias: LogLevel
+
+```ts theme={null}
+type LogLevel = "debug" | "info" | "warn" | "error" | "off";
+```
+
+Log verbosity; `off` disables logging.
